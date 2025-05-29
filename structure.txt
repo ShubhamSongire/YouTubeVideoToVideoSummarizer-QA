@@ -1,0 +1,13 @@
+yt_rag/
+├── rag_system/
+│   ├── __init__.py
+│   ├── document_processor.py
+│   ├── vector_store.py
+│   ├── memory.py
+│   ├── retriever.py
+│   ├── model.py
+│   └── rag_chain.py
+├── app.py
+└── requirements.txt
+
+
