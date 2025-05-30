@@ -1,89 +1,120 @@
 from langchain_core.runnables import RunnablePassthrough
 from typing import Dict, List, Any, Optional
+from .logger import setup_logger
+
+logger = setup_logger(__name__)
 
 class RAGChain:
     """Main RAG chain that combines retrieval, history, and response generation."""
     
     def __init__(self, retriever, model_manager, session_manager):
+        logger.info("Initializing RAG Chain")
         self.retriever = retriever
         self.model_manager = model_manager
         self.session_manager = session_manager
         self.chain = self._build_chain()
+        logger.info("RAG Chain initialized successfully")
     
     def _build_chain(self):
         """Build the RAG chain with history awareness."""
-        prompt = self.model_manager.create_prompt_template()
-        model = self.model_manager.llm
-        
-        def get_chat_history(input_dict):
-            session_id = input_dict.get("session_id")
-            # Get chat history if session_id is provided
-            if session_id:
-                return self.session_manager.get_messages(session_id)
-            return []
-        
-        def get_context(input_dict):
-            question = input_dict["question"]
-            docs = self.retriever.get_relevant_documents(question)
-            if not docs:
-                return "No relevant documents found."
-            return "\n\n".join([doc.page_content for doc in docs])
-        
-        def get_docs(input_dict):
-            question = input_dict["question"]
-            return self.retriever.get_relevant_documents(question)
-        
-        def get_answer(input_dict):
-            prompt_value = prompt.invoke({
-                "context": input_dict["context"],
-                "chat_history": input_dict["chat_history"],
-                "question": input_dict["question"]
-            })
-            # Process prompt value and get response
-            return model.invoke(prompt_value).content
-        
-        # Build chain with individual transformations
-        rag_chain = (
-            RunnablePassthrough()
-            .assign(
-                context=get_context,
-                chat_history=get_chat_history,
-                docs=get_docs
+        logger.info("Building RAG chain")
+        try:
+            prompt = self.model_manager.create_prompt_template()
+            model = self.model_manager.llm
+            
+            def get_chat_history(input_dict):
+                session_id = input_dict.get("session_id")
+                logger.debug(f"Getting chat history for session_id: {session_id}")
+                # Get chat history if session_id is provided
+                if session_id:
+                    return self.session_manager.get_messages(session_id)
+                logger.debug("No session_id provided, returning empty history")
+                return []
+            
+            def get_context(input_dict):
+                question = input_dict["question"]
+                logger.info(f"Getting context for question: {question[:50]}...")
+                docs = self.retriever.get_relevant_documents(question)
+                if not docs:
+                    logger.warning("No relevant documents found for context")
+                    return "No relevant documents found."
+                logger.info(f"Retrieved {len(docs)} documents for context")
+                return "\n\n".join([doc.page_content for doc in docs])
+            
+            def get_docs(input_dict):
+                question = input_dict["question"]
+                logger.debug(f"Getting raw docs for question: {question[:50]}...")
+                return self.retriever.get_relevant_documents(question)
+            
+            def get_answer(input_dict):
+                logger.info("Generating answer from context and question")
+                try:
+                    prompt_value = prompt.invoke({
+                        "context": input_dict["context"],
+                        "chat_history": input_dict["chat_history"],
+                        "question": input_dict["question"]
+                    })
+                    logger.debug("Prompt created, invoking model")
+                    return model.invoke(prompt_value).content
+                except Exception as e:
+                    logger.error(f"Error generating answer: {str(e)}")
+                    raise
+            
+            # Build chain with individual transformations
+            logger.info("Assembling RAG chain components")
+            rag_chain = (
+                RunnablePassthrough()
+                .assign(
+                    context=get_context,
+                    chat_history=get_chat_history,
+                    docs=get_docs
+                )
+                .assign(answer=get_answer)
             )
-            .assign(answer=get_answer)
-        )
-        
-        return rag_chain
+            
+            logger.info("RAG chain built successfully")
+            return rag_chain
+            
+        except Exception as e:
+            logger.error(f"Error building RAG chain: {str(e)}")
+            raise
     
     def invoke(self, question: str, session_id: Optional[str] = None):
         """Process a question and return an answer."""
+        logger.info(f"RAG Chain invoked with question: {question[:50]}...")
+        logger.debug(f"Session ID: {session_id}")
+        
         if session_id is None:
+            logger.info("No session ID provided, creating new session")
             session_id = self.session_manager.create_session()
         
         # Add user question to history
+        logger.debug("Adding user question to history")
         self.session_manager.add_user_message(session_id, question)
         
         # Get answer
         try:
+            logger.info("Executing RAG chain")
+            start_time = __import__('time').time()
             result = self.chain.invoke({
                 "question": question,
                 "session_id": session_id
             })
-        except Exception as e:
-            print(f"Error during RAG chain execution: {e}")
-            result = {
-                "answer": "I encountered an error while processing your question. Please try again.",
-                "context": "Error in retrieval",
-                "docs": []
+            elapsed_time = __import__('time').time() - start_time
+            logger.info(f"RAG chain execution completed in {elapsed_time:.2f}s")
+            
+            # Add AI response to history
+            logger.debug("Adding AI response to history")
+            self.session_manager.add_ai_message(session_id, result["answer"])
+            
+            return {
+                "session_id": session_id,
+                "question": question,
+                "answer": result["answer"],
+                "context": result["context"],
+                "docs": result["docs"],
+                "execution_time": elapsed_time
             }
-        
-        # Add AI response to history
-        self.session_manager.add_ai_message(session_id, result["answer"])
-        
-        return {
-            "session_id": session_id,
-            "question": question,
-            "answer": result["answer"],
-            "context": result["context"],
-            "docs": result["docs"]
-        }
+        except Exception as e:
+            logger.error(f"Error during RAG chain execution: {str(e)}")
+            raise
