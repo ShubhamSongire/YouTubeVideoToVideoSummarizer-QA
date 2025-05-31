@@ -215,10 +215,24 @@ async def ask_question(request: QuestionRequest):
             session_manager
         )
         
-        # Create session if needed
+        # Create session if needed - FIXED: explicit error handling
         session_id = request.session_id
-        if session_id is None:
-            session_id = session_manager.create_session(metadata={"video_id": video_id})
+        try:
+            if session_id is None:
+                session_id = session_manager.create_session(metadata={"video_id": video_id})
+            else:
+                # Verify session exists or create it
+                try:
+                    session_manager.get_session(session_id)
+                except ValueError:
+                    # Session doesn't exist, create it
+                    session_id = session_manager.create_session(
+                        session_id=session_id, 
+                        metadata={"video_id": video_id}
+                    )
+        except Exception as session_error:
+            logger.error(f"Session error: {str(session_error)}")
+            session_id = None  # Fallback to None if session handling fails
         
         # Get answer
         logger.info(f"Processing question for video {video_id}: {request.question}")
@@ -227,8 +241,8 @@ async def ask_question(request: QuestionRequest):
         return {
             "video_id": video_id,
             "question": request.question,
-            "answer": response["answer"],
-            "session_id": session_id
+            "answer": response.get("answer", "No answer generated"),
+            "session_id": response.get("session_id", session_id)  # Use fallback if missing
         }
         
     except Exception as e:

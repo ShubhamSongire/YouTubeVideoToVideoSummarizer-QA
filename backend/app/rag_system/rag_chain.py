@@ -84,16 +84,20 @@ class RAGChain:
         logger.info(f"RAG Chain invoked with question: {question[:50]}...")
         logger.debug(f"Session ID: {session_id}")
         
-        if session_id is None:
-            logger.info("No session ID provided, creating new session")
-            session_id = self.session_manager.create_session()
-        
-        # Add user question to history
-        logger.debug("Adding user question to history")
-        self.session_manager.add_user_message(session_id, question)
-        
-        # Get answer
         try:
+            if session_id is None:
+                logger.info("No session ID provided, creating new session")
+                session_id = self.session_manager.create_session()
+            
+            # Add user question to history
+            try:
+                logger.debug("Adding user question to history")
+                self.session_manager.add_user_message(session_id, question)
+            except Exception as e:
+                logger.error(f"Error adding user message: {str(e)}")
+                # Continue processing even if history update fails
+            
+            # Get answer
             logger.info("Executing RAG chain")
             start_time = __import__('time').time()
             result = self.chain.invoke({
@@ -104,17 +108,25 @@ class RAGChain:
             logger.info(f"RAG chain execution completed in {elapsed_time:.2f}s")
             
             # Add AI response to history
-            logger.debug("Adding AI response to history")
-            self.session_manager.add_ai_message(session_id, result["answer"])
+            try:
+                logger.debug("Adding AI response to history")
+                self.session_manager.add_ai_message(session_id, result["answer"])
+            except Exception as e:
+                logger.error(f"Error adding AI message: {str(e)}")
+                # Continue processing even if history update fails
+                
+            # Ensure session_id is included in response
+            result["session_id"] = session_id
             
+            return result
+        except Exception as e:
+            logger.error(f"Error during RAG chain execution: {str(e)}")
+            # Return minimal result with error information
             return {
                 "session_id": session_id,
                 "question": question,
-                "answer": result["answer"],
-                "context": result["context"],
-                "docs": result["docs"],
-                "execution_time": elapsed_time
+                "answer": f"Error processing your question: {str(e)}",
+                "context": [],
+                "docs": [],
+                "execution_time": 0
             }
-        except Exception as e:
-            logger.error(f"Error during RAG chain execution: {str(e)}")
-            raise
