@@ -16,3 +16,4 @@
 2025-05-31 02:05:55,734 - app.rag_system.vector_store - INFO - Vector store created successfully
 2025-05-31 02:05:55,736 - app.rag_system.vector_store - INFO - Vector store saved as video_bDVpI23q8Zg.faiss and video_bDVpI23q8Zg.pkl
 2025-05-31 02:05:55,736 - app.main - INFO - Video processing completed for bDVpI23q8Zg
+2025-05-31 10:59:48,441 - app.main - INFO - Transcriber initialized successfully
