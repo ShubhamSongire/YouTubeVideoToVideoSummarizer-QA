@@ -28,14 +28,18 @@ class VectorStore:
     
     def load_vector_store(self, store_name: str = "faiss_index"):
         """Load an existing vector store."""
-        index_path = f"{store_name}.faiss"
-        docstore_path = f"{store_name}.pkl"
+        index_path = f"vector_stores/{store_name}/index.faiss"
+        docstore_path = f"vector_stores/{store_name}/index.pkl"
         
         logger.info(f"Attempting to load vector store: {store_name}")
         
         if os.path.exists(index_path) and os.path.exists(docstore_path):
             try:
-                self.vector_store = FAISS.load_local(store_name, self.embeddings)
+                self.vector_store = FAISS.load_local(
+                    store_name, 
+                    self.embeddings, 
+                    allow_dangerous_deserialization=True
+                )
                 logger.info(f"Vector store '{store_name}' loaded successfully")
                 return self.vector_store
             except Exception as e:

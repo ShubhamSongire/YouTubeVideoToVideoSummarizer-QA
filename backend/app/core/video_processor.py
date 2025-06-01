@@ -30,7 +30,7 @@ class VideoProcessor:
             if not video_id:
                 raise ValueError("Could not extract video ID from URL")
             
-            output_path = os.path.join(self.output_dir, f"{video_id}.mp3")
+            output_path = os.path.join(self.output_dir, f"{video_id}")
             
             ydl_opts = {
                 'format': 'bestaudio/best',
@@ -43,6 +43,9 @@ class VideoProcessor:
                 'noplaylist': True,
                 'quiet': False,
                 'extract_flat': False,
+                'writesubtitles': True,      # Attempt to write subtitles
+                'writeautomaticsub': True,   # Include auto-generated subs if no manual ones available
+                'subtitleslangs': ['en'],    # Download English subtitles
             }
             
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
@@ -50,14 +53,31 @@ class VideoProcessor:
                 title = info.get('title', 'Unknown Title')
                 duration = info.get('duration', 0)
                 
-                # Now download the file
+                # Now download the file and possibly subtitles
                 ydl.download([youtube_url])
             
-            return {
+            # Add .mp3 extension for the return value since yt-dlp will add it
+            output_path_with_ext = f"{output_path}.mp3"
+            
+            # Check if subtitles were downloaded
+            subtitle_path = None
+            for ext in ['.en.vtt', '.en.srt', '.vtt', '.srt']:
+                potential_path = f"{output_path}{ext}"
+                if os.path.exists(potential_path):
+                    subtitle_path = potential_path
+                    break
+            
+            result = {
                 "video_id": video_id,
                 "title": title,
-                "audio_path": output_path,
+                "audio_path": output_path_with_ext,
                 "duration": duration
             }
+            
+            # Add subtitle path if found
+            if subtitle_path:
+                result["subtitle_path"] = subtitle_path
+                
+            return result
         except Exception as e:
             raise Exception(f"Error downloading YouTube video: {str(e)}")

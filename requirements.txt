@@ -15,9 +15,9 @@ langchain-community==0.0.19
 faiss-cpu==1.11.0
 pydantic==2.6.3  # Compatible with newer packages
 protobuf==4.25.8  # Version that works with whisper
-pytube==15.0.0
+yt-dlp==2023.12.30
 openai-whisper==20231117
 streamlit==1.32.0
 tiktoken==0.6.0
-streamlit==1.32.0 
 requests
+re

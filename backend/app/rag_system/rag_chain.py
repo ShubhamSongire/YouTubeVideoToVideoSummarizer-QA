@@ -1,5 +1,6 @@
 from langchain_core.runnables import RunnablePassthrough
 from typing import Dict, List, Any, Optional
+import os
 from .logger import setup_logger
 
 logger = setup_logger(__name__)
@@ -16,7 +17,7 @@ class RAGChain:
         logger.info("RAG Chain initialized successfully")
     
     def _build_chain(self):
-        """Build the RAG chain with history awareness."""
+        """Build the RAG chain with history and transcript awareness."""
         logger.info("Building RAG chain")
         try:
             prompt = self.model_manager.create_prompt_template()
@@ -30,14 +31,43 @@ class RAGChain:
                     return self.session_manager.get_messages(session_id)
                 logger.debug("No session_id provided, returning empty history")
                 return []
+                
+            def get_video_transcript(input_dict):
+                """Get the full video transcript if available."""
+                session_id = input_dict.get("session_id")
+                if not session_id:
+                    return None
+                
+                try:
+                    session = self.session_manager.get_session(session_id)
+                    metadata = session.get("metadata", {})
+                    video_id = metadata.get("video_id")
+                    
+                    if video_id:
+                        logger.info(f"Getting transcript for video ID: {video_id}")
+                        transcript_path = f"./transcripts/{video_id}.txt"
+                        if os.path.exists(transcript_path):
+                            with open(transcript_path, "r") as f:
+                                return f.read()
+                except Exception as e:
+                    logger.error(f"Error getting video transcript: {str(e)}")
+                
+                return None
             
             def get_context(input_dict):
                 question = input_dict["question"]
                 logger.info(f"Getting context for question: {question[:50]}...")
                 docs = self.retriever.get_relevant_documents(question)
+                
+                # If no relevant docs found, try to use the full transcript
                 if not docs:
                     logger.warning("No relevant documents found for context")
-                    return "No relevant documents found."
+                    transcript = get_video_transcript(input_dict)
+                    if transcript:
+                        logger.info("Using full transcript as context since no relevant chunks were found")
+                        return transcript
+                    return "No relevant information found in the video transcript."
+                    
                 logger.info(f"Retrieved {len(docs)} documents for context")
                 return "\n\n".join([doc.page_content for doc in docs])
             

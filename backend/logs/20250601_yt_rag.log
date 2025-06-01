@@ -62,3 +62,254 @@
 2025-06-01 00:19:09,463 - app.main - INFO - Video processing completed for bDVpI23q8Zg
 2025-06-01 00:19:09,490 - app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=bDVpI23q8Zg
 2025-06-01 00:19:15,051 - app.main - INFO - Download completed for video bDVpI23q8Zg
+2025-06-01 00:49:45,948 - app.main - INFO - Transcriber initialized successfully
+2025-06-01 00:49:45,974 - app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-01 00:49:45,974 - app.rag_system.model - INFO - Initializing ModelManager with model=gpt-3.5-turbo, temperature=0
+2025-06-01 00:49:45,988 - app.rag_system.model - INFO - LLM initialized successfully
+2025-06-01 00:49:53,044 - app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=rwF-X5STYks
+2025-06-01 00:50:01,197 - app.main - INFO - Download completed for video rwF-X5STYks
+2025-06-01 00:50:01,197 - app.main - ERROR - Error processing video: Audio file not found: ./downloads/rwF-X5STYks.mp3
+2025-06-01 00:50:01,198 - app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=rwF-X5STYks
+2025-06-01 00:50:08,047 - app.main - INFO - Download completed for video rwF-X5STYks
+2025-06-01 00:50:08,047 - app.main - ERROR - Error processing video: Audio file not found: ./downloads/rwF-X5STYks.mp3
+2025-06-01 00:50:08,049 - app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=rwF-X5STYks
+2025-06-01 00:50:14,943 - app.main - INFO - Download completed for video rwF-X5STYks
+2025-06-01 00:50:14,943 - app.main - ERROR - Error processing video: Audio file not found: ./downloads/rwF-X5STYks.mp3
+2025-06-01 00:50:14,944 - app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=rwF-X5STYks
+2025-06-01 00:50:22,232 - app.main - INFO - Download completed for video rwF-X5STYks
+2025-06-01 00:50:22,232 - app.main - ERROR - Error processing video: Audio file not found: ./downloads/rwF-X5STYks.mp3
+2025-06-01 00:50:22,234 - app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=rwF-X5STYks
+2025-06-01 00:50:29,092 - app.main - INFO - Download completed for video rwF-X5STYks
+2025-06-01 00:50:29,092 - app.main - ERROR - Error processing video: Audio file not found: ./downloads/rwF-X5STYks.mp3
+2025-06-01 00:50:29,093 - app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=rwF-X5STYks
+2025-06-01 00:50:35,987 - app.main - INFO - Download completed for video rwF-X5STYks
+2025-06-01 00:50:35,987 - app.main - ERROR - Error processing video: Audio file not found: ./downloads/rwF-X5STYks.mp3
+2025-06-01 00:50:35,988 - app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=rwF-X5STYks
+2025-06-01 00:50:43,020 - app.main - INFO - Download completed for video rwF-X5STYks
+2025-06-01 00:50:43,021 - app.main - ERROR - Error processing video: Audio file not found: ./downloads/rwF-X5STYks.mp3
+2025-06-01 00:50:43,022 - app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=rwF-X5STYks
+2025-06-01 00:50:50,461 - app.main - INFO - Download completed for video rwF-X5STYks
+2025-06-01 00:50:50,461 - app.main - ERROR - Error processing video: Audio file not found: ./downloads/rwF-X5STYks.mp3
+2025-06-01 00:50:50,463 - app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=rwF-X5STYks
+2025-06-01 00:50:57,364 - app.main - INFO - Download completed for video rwF-X5STYks
+2025-06-01 00:50:57,365 - app.main - ERROR - Error processing video: Audio file not found: ./downloads/rwF-X5STYks.mp3
+2025-06-01 00:50:57,366 - app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=rwF-X5STYks
+2025-06-01 00:51:04,065 - app.main - INFO - Download completed for video rwF-X5STYks
+2025-06-01 00:51:04,065 - app.main - ERROR - Error processing video: Audio file not found: ./downloads/rwF-X5STYks.mp3
+2025-06-01 00:51:04,066 - app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=rwF-X5STYks
+2025-06-01 00:51:10,889 - app.main - INFO - Download completed for video rwF-X5STYks
+2025-06-01 00:51:10,889 - app.main - ERROR - Error processing video: Audio file not found: ./downloads/rwF-X5STYks.mp3
+2025-06-01 00:51:10,891 - app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=rwF-X5STYks
+2025-06-01 00:51:17,789 - app.main - INFO - Download completed for video rwF-X5STYks
+2025-06-01 00:51:17,789 - app.main - ERROR - Error processing video: Audio file not found: ./downloads/rwF-X5STYks.mp3
+2025-06-01 00:51:17,790 - app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=rwF-X5STYks
+2025-06-01 00:51:24,667 - app.main - INFO - Download completed for video rwF-X5STYks
+2025-06-01 00:51:24,667 - app.main - ERROR - Error processing video: Audio file not found: ./downloads/rwF-X5STYks.mp3
+2025-06-01 00:51:24,669 - app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=rwF-X5STYks
+2025-06-01 00:51:32,024 - app.main - INFO - Download completed for video rwF-X5STYks
+2025-06-01 00:51:32,024 - app.main - ERROR - Error processing video: Audio file not found: ./downloads/rwF-X5STYks.mp3
+2025-06-01 00:51:32,026 - app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=rwF-X5STYks
+2025-06-01 00:51:39,094 - app.main - INFO - Download completed for video rwF-X5STYks
+2025-06-01 00:51:39,094 - app.main - ERROR - Error processing video: Audio file not found: ./downloads/rwF-X5STYks.mp3
+2025-06-01 00:51:39,096 - app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=rwF-X5STYks
+2025-06-01 00:51:46,055 - app.main - INFO - Download completed for video rwF-X5STYks
+2025-06-01 00:51:46,055 - app.main - ERROR - Error processing video: Audio file not found: ./downloads/rwF-X5STYks.mp3
+2025-06-01 00:51:46,056 - app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=rwF-X5STYks
+2025-06-01 00:51:53,213 - app.main - INFO - Download completed for video rwF-X5STYks
+2025-06-01 00:51:53,213 - app.main - ERROR - Error processing video: Audio file not found: ./downloads/rwF-X5STYks.mp3
+2025-06-01 00:51:53,214 - app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=rwF-X5STYks
+2025-06-01 00:52:00,312 - app.main - INFO - Download completed for video rwF-X5STYks
+2025-06-01 00:52:00,313 - app.main - ERROR - Error processing video: Audio file not found: ./downloads/rwF-X5STYks.mp3
+2025-06-01 00:52:00,314 - app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=rwF-X5STYks
+2025-06-01 00:52:07,150 - app.main - INFO - Download completed for video rwF-X5STYks
+2025-06-01 00:52:07,150 - app.main - ERROR - Error processing video: Audio file not found: ./downloads/rwF-X5STYks.mp3
+2025-06-01 00:52:07,151 - app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=rwF-X5STYks
+2025-06-01 00:52:14,653 - app.main - INFO - Download completed for video rwF-X5STYks
+2025-06-01 00:52:14,654 - app.main - ERROR - Error processing video: Audio file not found: ./downloads/rwF-X5STYks.mp3
+2025-06-01 00:52:14,655 - app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=rwF-X5STYks
+2025-06-01 00:52:22,119 - app.main - INFO - Download completed for video rwF-X5STYks
+2025-06-01 00:52:22,119 - app.main - ERROR - Error processing video: Audio file not found: ./downloads/rwF-X5STYks.mp3
+2025-06-01 00:52:22,120 - app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=rwF-X5STYks
+2025-06-01 00:52:29,283 - app.main - INFO - Download completed for video rwF-X5STYks
+2025-06-01 00:52:29,284 - app.main - ERROR - Error processing video: Audio file not found: ./downloads/rwF-X5STYks.mp3
+2025-06-01 00:52:29,285 - app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=rwF-X5STYks
+2025-06-01 00:52:37,017 - app.main - INFO - Download completed for video rwF-X5STYks
+2025-06-01 00:52:37,017 - app.main - ERROR - Error processing video: Audio file not found: ./downloads/rwF-X5STYks.mp3
+2025-06-01 00:52:37,018 - app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=rwF-X5STYks
+2025-06-01 00:52:44,031 - app.main - INFO - Download completed for video rwF-X5STYks
+2025-06-01 00:52:44,031 - app.main - ERROR - Error processing video: Audio file not found: ./downloads/rwF-X5STYks.mp3
+2025-06-01 00:52:44,032 - app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=rwF-X5STYks
+2025-06-01 00:52:51,204 - app.main - INFO - Download completed for video rwF-X5STYks
+2025-06-01 00:52:51,204 - app.main - ERROR - Error processing video: Audio file not found: ./downloads/rwF-X5STYks.mp3
+2025-06-01 00:54:57,501 - app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=rwF-X5STYks
+2025-06-01 00:55:04,132 - app.main - INFO - Download completed for video rwF-X5STYks
+2025-06-01 00:55:04,132 - app.main - ERROR - Error processing video: Audio file not found: ./downloads/rwF-X5STYks.mp3
+2025-06-01 00:55:20,480 - app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=rwF-X5STYks
+2025-06-01 00:55:27,496 - app.main - INFO - Download completed for video rwF-X5STYks
+2025-06-01 00:55:27,497 - app.main - ERROR - Error processing video: Audio file not found: ./downloads/rwF-X5STYks.mp3
+2025-06-01 00:56:39,121 - app.main - INFO - Transcriber initialized successfully
+2025-06-01 00:56:39,150 - app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-01 00:56:39,150 - app.rag_system.model - INFO - Initializing ModelManager with model=gpt-3.5-turbo, temperature=0
+2025-06-01 00:56:39,164 - app.rag_system.model - INFO - LLM initialized successfully
+2025-06-01 00:56:48,006 - app.main - INFO - Transcriber initialized successfully
+2025-06-01 00:56:48,027 - app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-01 00:56:48,027 - app.rag_system.model - INFO - Initializing ModelManager with model=gpt-3.5-turbo, temperature=0
+2025-06-01 00:56:48,042 - app.rag_system.model - INFO - LLM initialized successfully
+2025-06-01 00:56:48,048 - app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=rwF-X5STYks
+2025-06-01 00:56:55,931 - app.main - INFO - Download completed for video rwF-X5STYks
+2025-06-01 00:56:55,932 - app.main - ERROR - Error processing video: Audio file not found: ./downloads/rwF-X5STYks.mp3
+2025-06-01 01:00:48,145 - app.main - INFO - Transcriber initialized successfully
+2025-06-01 01:00:48,173 - app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-01 01:00:48,173 - app.rag_system.model - INFO - Initializing ModelManager with model=gpt-3.5-turbo, temperature=0
+2025-06-01 01:00:48,190 - app.rag_system.model - INFO - LLM initialized successfully
+2025-06-01 01:01:00,895 - app.main - INFO - Transcriber initialized successfully
+2025-06-01 01:01:00,920 - app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-01 01:01:00,920 - app.rag_system.model - INFO - Initializing ModelManager with model=gpt-3.5-turbo, temperature=0
+2025-06-01 01:01:00,934 - app.rag_system.model - INFO - LLM initialized successfully
+2025-06-01 01:01:00,942 - app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=rwF-X5STYks
+2025-06-01 01:01:08,488 - app.main - INFO - Download completed for video rwF-X5STYks
+2025-06-01 01:01:08,488 - app.main - ERROR - Error processing video: Audio file not found: ./downloads/rwF-X5STYks
+2025-06-01 01:02:19,870 - app.main - INFO - Transcriber initialized successfully
+2025-06-01 01:02:19,891 - app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-01 01:02:19,891 - app.rag_system.model - INFO - Initializing ModelManager with model=gpt-3.5-turbo, temperature=0
+2025-06-01 01:02:19,906 - app.rag_system.model - INFO - LLM initialized successfully
+2025-06-01 01:02:37,040 - app.main - INFO - Transcriber initialized successfully
+2025-06-01 01:02:37,066 - app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-01 01:02:37,067 - app.rag_system.model - INFO - Initializing ModelManager with model=gpt-3.5-turbo, temperature=0
+2025-06-01 01:02:37,081 - app.rag_system.model - INFO - LLM initialized successfully
+2025-06-01 01:02:44,619 - app.main - INFO - Transcriber initialized successfully
+2025-06-01 01:02:44,641 - app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-01 01:02:44,641 - app.rag_system.model - INFO - Initializing ModelManager with model=gpt-3.5-turbo, temperature=0
+2025-06-01 01:02:44,656 - app.rag_system.model - INFO - LLM initialized successfully
+2025-06-01 01:02:50,834 - app.main - INFO - Transcriber initialized successfully
+2025-06-01 01:02:50,855 - app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-01 01:02:50,855 - app.rag_system.model - INFO - Initializing ModelManager with model=gpt-3.5-turbo, temperature=0
+2025-06-01 01:02:50,869 - app.rag_system.model - INFO - LLM initialized successfully
+2025-06-01 01:03:08,879 - app.main - INFO - Transcriber initialized successfully
+2025-06-01 01:03:08,901 - app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-01 01:03:08,901 - app.rag_system.model - INFO - Initializing ModelManager with model=gpt-3.5-turbo, temperature=0
+2025-06-01 01:03:08,920 - app.rag_system.model - INFO - LLM initialized successfully
+2025-06-01 01:03:08,927 - app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=rwF-X5STYks
+2025-06-01 01:03:16,492 - app.main - INFO - Download completed for video rwF-X5STYks
+2025-06-01 01:03:24,699 - app.main - INFO - Transcription completed for video rwF-X5STYks
+2025-06-01 01:03:26,312 - app.main - INFO - Summarization completed for video rwF-X5STYks
+2025-06-01 01:03:26,313 - app.rag_system.document_processor - INFO - Initializing DocumentProcessor with chunk_size=1000, chunk_overlap=200
+2025-06-01 01:03:26,313 - app.rag_system.document_processor - INFO - Loading documents from directory: ./transcripts
+2025-06-01 01:03:26,340 - app.rag_system.document_processor - INFO - Successfully loaded 2 documents from ./transcripts
+2025-06-01 01:03:26,340 - app.rag_system.document_processor - INFO - Splitting 2 documents into chunks
+2025-06-01 01:03:26,347 - app.rag_system.document_processor - INFO - Created 35 document chunks
+2025-06-01 01:03:26,347 - app.rag_system.vector_store - INFO - Initializing VectorStore with embedding model: text-embedding-3-small
+2025-06-01 01:03:26,365 - app.rag_system.vector_store - INFO - Creating vector store 'video_rwF-X5STYks' from 35 documents
+2025-06-01 01:03:29,923 - app.rag_system.vector_store - INFO - Vector store created successfully
+2025-06-01 01:03:29,926 - app.rag_system.vector_store - INFO - Vector store saved as video_rwF-X5STYks.faiss and video_rwF-X5STYks.pkl
+2025-06-01 01:03:29,926 - app.main - INFO - Video processing completed for rwF-X5STYks
+2025-06-01 01:03:29,927 - app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=rwF-X5STYks
+2025-06-01 01:03:36,979 - app.main - INFO - Download completed for video rwF-X5STYks
+2025-06-01 01:03:45,036 - app.main - INFO - Transcription completed for video rwF-X5STYks
+2025-06-01 01:03:46,652 - app.main - INFO - Summarization completed for video rwF-X5STYks
+2025-06-01 01:03:46,653 - app.rag_system.document_processor - INFO - Initializing DocumentProcessor with chunk_size=1000, chunk_overlap=200
+2025-06-01 01:03:46,654 - app.rag_system.document_processor - INFO - Loading documents from directory: ./transcripts
+2025-06-01 01:03:46,658 - app.rag_system.document_processor - INFO - Successfully loaded 2 documents from ./transcripts
+2025-06-01 01:03:46,658 - app.rag_system.document_processor - INFO - Splitting 2 documents into chunks
+2025-06-01 01:03:46,670 - app.rag_system.document_processor - INFO - Created 35 document chunks
+2025-06-01 01:03:46,671 - app.rag_system.vector_store - INFO - Initializing VectorStore with embedding model: text-embedding-3-small
+2025-06-01 01:03:46,700 - app.rag_system.vector_store - INFO - Creating vector store 'video_rwF-X5STYks' from 35 documents
+2025-06-01 01:03:48,209 - app.rag_system.vector_store - INFO - Vector store created successfully
+2025-06-01 01:03:48,212 - app.rag_system.vector_store - INFO - Vector store saved as video_rwF-X5STYks.faiss and video_rwF-X5STYks.pkl
+2025-06-01 01:03:48,213 - app.main - INFO - Video processing completed for rwF-X5STYks
+2025-06-01 01:04:06,672 - app.rag_system.vector_store - INFO - Initializing VectorStore with embedding model: text-embedding-3-small
+2025-06-01 01:04:06,700 - app.rag_system.vector_store - INFO - Attempting to load vector store: video_rwF-X5STYks
+2025-06-01 01:04:06,700 - app.rag_system.vector_store - WARNING - Vector store files for 'video_rwF-X5STYks' not found
+2025-06-01 01:04:06,700 - app.main - ERROR - Error processing question: Vector store files for video_rwF-X5STYks not found.
+2025-06-01 01:06:40,473 - app.main - INFO - Transcriber initialized successfully
+2025-06-01 01:06:40,497 - app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-01 01:06:40,497 - app.rag_system.model - INFO - Initializing ModelManager with model=gpt-3.5-turbo, temperature=0
+2025-06-01 01:06:40,512 - app.rag_system.model - INFO - LLM initialized successfully
+2025-06-01 01:07:03,740 - app.main - INFO - Transcriber initialized successfully
+2025-06-01 01:07:03,762 - app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-01 01:07:03,762 - app.rag_system.model - INFO - Initializing ModelManager with model=gpt-3.5-turbo, temperature=0
+2025-06-01 01:07:03,776 - app.rag_system.model - INFO - LLM initialized successfully
+2025-06-01 01:10:45,595 - app.main - INFO - Transcriber initialized successfully
+2025-06-01 01:10:45,629 - app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-01 01:10:45,629 - app.rag_system.model - INFO - Initializing ModelManager with model=gpt-3.5-turbo, temperature=0
+2025-06-01 01:10:45,644 - app.rag_system.model - INFO - LLM initialized successfully
+2025-06-01 01:12:27,816 - app.main - INFO - Transcriber initialized successfully
+2025-06-01 01:12:27,838 - app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-01 01:12:27,838 - app.rag_system.model - INFO - Initializing ModelManager with model=gpt-3.5-turbo, temperature=0
+2025-06-01 01:12:27,852 - app.rag_system.model - INFO - LLM initialized successfully
+2025-06-01 01:12:39,506 - app.main - INFO - Transcriber initialized successfully
+2025-06-01 01:12:39,527 - app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-01 01:12:39,527 - app.rag_system.model - INFO - Initializing ModelManager with model=gpt-3.5-turbo, temperature=0
+2025-06-01 01:12:39,542 - app.rag_system.model - INFO - LLM initialized successfully
+2025-06-01 01:12:47,978 - app.main - INFO - Transcriber initialized successfully
+2025-06-01 01:12:48,002 - app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-01 01:12:48,002 - app.rag_system.model - INFO - Initializing ModelManager with model=gpt-3.5-turbo, temperature=0
+2025-06-01 01:12:48,016 - app.rag_system.model - INFO - LLM initialized successfully
+2025-06-01 01:13:04,360 - app.main - INFO - Transcriber initialized successfully
+2025-06-01 01:13:04,385 - app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-01 01:13:04,385 - app.rag_system.model - INFO - Initializing ModelManager with model=gpt-3.5-turbo, temperature=0
+2025-06-01 01:13:04,399 - app.rag_system.model - INFO - LLM initialized successfully
+2025-06-01 15:31:38,374 - app.main - INFO - Transcriber initialized successfully
+2025-06-01 15:31:38,407 - app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-01 15:31:38,407 - app.rag_system.model - INFO - Initializing ModelManager with model=gpt-3.5-turbo, temperature=0
+2025-06-01 15:31:38,422 - app.rag_system.model - INFO - LLM initialized successfully
+2025-06-01 15:31:58,695 - app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=rwF-X5STYks
+2025-06-01 15:32:09,121 - app.main - INFO - Download completed for video rwF-X5STYks
+2025-06-01 15:32:17,059 - app.main - INFO - Transcription completed for video rwF-X5STYks
+2025-06-01 15:32:19,178 - app.main - INFO - Summarization completed for video rwF-X5STYks
+2025-06-01 15:32:19,189 - app.rag_system.document_processor - INFO - Initializing DocumentProcessor with chunk_size=1000, chunk_overlap=200
+2025-06-01 15:32:19,189 - app.rag_system.document_processor - INFO - Loading documents from directory: ./transcripts
+2025-06-01 15:32:19,211 - app.rag_system.document_processor - INFO - Successfully loaded 2 documents from ./transcripts
+2025-06-01 15:32:19,211 - app.rag_system.document_processor - INFO - Splitting 2 documents into chunks
+2025-06-01 15:32:19,217 - app.rag_system.document_processor - INFO - Created 35 document chunks
+2025-06-01 15:32:19,217 - app.rag_system.vector_store - INFO - Initializing VectorStore with embedding model: text-embedding-3-small
+2025-06-01 15:32:19,238 - app.rag_system.vector_store - INFO - Creating vector store 'video_rwF-X5STYks' from 35 documents
+2025-06-01 15:32:21,473 - app.rag_system.vector_store - INFO - Vector store created successfully
+2025-06-01 15:32:21,487 - app.rag_system.vector_store - INFO - Vector store saved as video_rwF-X5STYks.faiss and video_rwF-X5STYks.pkl
+2025-06-01 15:32:21,487 - app.main - INFO - Video processing completed for rwF-X5STYks
+2025-06-01 15:37:07,883 - app.main - INFO - Transcriber initialized successfully
+2025-06-01 15:37:07,909 - app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-01 15:37:07,910 - app.rag_system.model - INFO - Initializing ModelManager with model=gpt-3.5-turbo, temperature=0
+2025-06-01 15:37:07,924 - app.rag_system.model - INFO - LLM initialized successfully
+2025-06-01 15:37:18,766 - app.main - INFO - Transcriber initialized successfully
+2025-06-01 15:37:18,787 - app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-01 15:37:18,787 - app.rag_system.model - INFO - Initializing ModelManager with model=gpt-3.5-turbo, temperature=0
+2025-06-01 15:37:18,801 - app.rag_system.model - INFO - LLM initialized successfully
+2025-06-01 15:38:05,897 - app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=rwF-X5STYks
+2025-06-01 15:38:14,781 - app.main - INFO - Download completed for video rwF-X5STYks
+2025-06-01 15:38:22,904 - app.main - INFO - Transcription completed for video rwF-X5STYks
+2025-06-01 15:38:24,737 - app.main - INFO - Summarization completed for video rwF-X5STYks
+2025-06-01 15:38:24,739 - app.rag_system.document_processor - INFO - Initializing DocumentProcessor with chunk_size=1000, chunk_overlap=200
+2025-06-01 15:38:24,739 - app.rag_system.document_processor - INFO - Loading documents from directory: ./transcripts
+2025-06-01 15:38:24,745 - app.rag_system.document_processor - INFO - Successfully loaded 2 documents from ./transcripts
+2025-06-01 15:38:24,745 - app.rag_system.document_processor - INFO - Splitting 2 documents into chunks
+2025-06-01 15:38:24,752 - app.rag_system.document_processor - INFO - Created 35 document chunks
+2025-06-01 15:38:24,753 - app.rag_system.vector_store - INFO - Initializing VectorStore with embedding model: text-embedding-3-small
+2025-06-01 15:38:24,777 - app.rag_system.vector_store - INFO - Creating vector store 'video_rwF-X5STYks' from 35 documents
+2025-06-01 15:38:27,205 - app.rag_system.vector_store - INFO - Vector store created successfully
+2025-06-01 15:38:27,207 - app.rag_system.vector_store - INFO - Vector store saved as video_rwF-X5STYks.faiss and video_rwF-X5STYks.pkl
+2025-06-01 15:38:27,207 - app.main - INFO - Video processing completed for rwF-X5STYks
+2025-06-01 15:38:27,209 - app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=rwF-X5STYks
+2025-06-01 15:38:35,012 - app.main - INFO - Download completed for video rwF-X5STYks
+2025-06-01 15:38:43,395 - app.main - INFO - Transcription completed for video rwF-X5STYks
+2025-06-01 15:38:45,433 - app.main - INFO - Summarization completed for video rwF-X5STYks
+2025-06-01 15:38:45,434 - app.rag_system.document_processor - INFO - Initializing DocumentProcessor with chunk_size=1000, chunk_overlap=200
+2025-06-01 15:38:45,434 - app.rag_system.document_processor - INFO - Loading documents from directory: ./transcripts
+2025-06-01 15:38:45,439 - app.rag_system.document_processor - INFO - Successfully loaded 2 documents from ./transcripts
+2025-06-01 15:38:45,439 - app.rag_system.document_processor - INFO - Splitting 2 documents into chunks
+2025-06-01 15:38:45,449 - app.rag_system.document_processor - INFO - Created 35 document chunks
+2025-06-01 15:38:45,449 - app.rag_system.vector_store - INFO - Initializing VectorStore with embedding model: text-embedding-3-small
+2025-06-01 15:38:45,471 - app.rag_system.vector_store - INFO - Creating vector store 'video_rwF-X5STYks' from 35 documents
+2025-06-01 15:38:47,181 - app.rag_system.vector_store - INFO - Vector store created successfully
+2025-06-01 15:38:47,184 - app.rag_system.vector_store - INFO - Vector store saved as video_rwF-X5STYks.faiss and video_rwF-X5STYks.pkl
+2025-06-01 15:38:47,185 - app.main - INFO - Video processing completed for rwF-X5STYks
+2025-06-01 15:39:02,663 - app.main - INFO - Looking for vector store at: /Users/L058428/experiments/yt_rag/backend/vector_stores/video_rwF-X5STYks
+2025-06-01 15:39:02,663 - app.main - INFO - Path exists? False
+2025-06-01 15:39:19,030 - app.main - INFO - Looking for vector store at: /Users/L058428/experiments/yt_rag/backend/vector_stores/video_rwF-X5STYks
+2025-06-01 15:39:19,030 - app.main - INFO - Path exists? False
+2025-06-01 22:48:06,489 - app.main - INFO - Looking for vector store at: /Users/L058428/experiments/yt_rag/backend/vector_stores/video_rwF-X5STYks
+2025-06-01 22:48:06,490 - app.main - INFO - Path exists? False
+2025-06-01 22:52:43,563 - app.main - INFO - Transcriber initialized successfully
+2025-06-01 22:52:43,591 - app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-01 22:52:43,591 - app.rag_system.model - INFO - Initializing ModelManager with model=gpt-3.5-turbo, temperature=0
+2025-06-01 22:52:43,605 - app.rag_system.model - INFO - LLM initialized successfully

@@ -25,17 +25,19 @@ class ModelManager:
         logger.info("Creating prompt template")
         if system_template is None:
             logger.debug("Using default system template")
-            system_template = """You are a helpful assistant that answers questions based on the provided context.
+            system_template = """You are a helpful assistant that answers questions based on the provided video transcript and context.
+            You're helping users understand the content of a YouTube video they're asking about.
             If the context doesn't contain the answer, say you don't know but try to be helpful.
             Don't make up information that's not in the context.
             Format your responses in a clear, readable way with markdown formatting where appropriate.
-            If quoting from the context, make it clear by using quotation marks or blockquotes."""
+            If quoting from the context, make it clear by using quotation marks or blockquotes.
+            Use the chat history to provide consistent responses."""
         
         template = ChatPromptTemplate.from_messages([
             ("system", system_template),
             MessagesPlaceholder(variable_name="chat_history"),
             ("human", "{question}"),
-            ("system", "Here is context information to help with the response: {context}")
+            ("system", "Here is context information from the video transcript to help with the response: {context}")
         ])
         logger.info("Prompt template created successfully")
         return template

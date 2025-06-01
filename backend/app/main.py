@@ -4,6 +4,7 @@ import os
 from typing import Dict, List, Optional
 import uuid
 import time
+from fastapi.responses import JSONResponse
 from dotenv import load_dotenv
 
 # Import your existing components
@@ -108,14 +109,27 @@ async def process_video_task(processing_id: str, youtube_url: str):
         video_store[processing_id]["steps"]["download"] = "completed"
         logger.info(f"Download completed for video {video_id}")
         
-        # Transcribe audio
+        # Transcribe audio (using captions if available, or Whisper as fallback)
         if transcriber:
             video_store[processing_id]["steps"]["transcription"] = "in_progress"
+            
+            # Log whether we're using existing subtitles or Whisper
+            if "subtitle_path" in video_info:
+                logger.info(f"Using existing subtitles found at: {video_info['subtitle_path']}")
+            else:
+                logger.info(f"No subtitles found, will use Whisper for transcription")
+                
+            # Get transcript (will try captions first, then Whisper)
             transcript = transcriber.transcribe(video_info["audio_path"])
+            
             video_store[processing_id]["transcript"] = transcript["full_text"]
             video_store[processing_id]["segments"] = transcript["segments"]
             video_store[processing_id]["steps"]["transcription"] = "completed"
-            logger.info(f"Transcription completed for video {video_id}")
+            
+            # Store the source of transcription
+            video_store[processing_id]["transcription_source"] = "captions" if "subtitle_path" in video_info else "whisper"
+            
+            logger.info(f"Transcription completed for video {video_id} using {video_store[processing_id]['transcription_source']}")
         else:
             video_store[processing_id]["steps"]["transcription"] = "skipped"
             logger.warning("Transcriber not available, skipping transcription")
@@ -184,29 +198,63 @@ async def get_video_summary(processing_id: str):
         "title": video_data["title"],
         "summary": video_data["summary"]
     }
-
+    
+@app.get("/video/{processing_id}/status")
+async def check_processing_status(processing_id: str):
+    """Check the status of a video processing task."""
+    if processing_id not in video_store:
+        raise HTTPException(status_code=404, detail="Processing task not found")
+    
+    data = video_store[processing_id]
+    
+    # Add vector store status to the response
+    vector_store_exists = False
+    if "video_id" in data:
+        vector_store_path = f"vector_stores/video_{data['video_id']}"
+        vector_store_exists = os.path.exists(vector_store_path)
+    
+    return {
+        "status": data["status"],
+        "video_id": data.get("video_id"),
+        "title": data.get("title"),
+        "transcript_available": data.get("transcript_status") == "completed",
+        "summary_available": data.get("summary_status") == "completed",
+        "vector_store_available": vector_store_exists,  # Add this status
+        "error": data.get("error")
+    }
+    
 @app.post("/ask")
 async def ask_question(request: QuestionRequest):
     """Ask a question about a specific video."""
     video_id = request.video_id
     
-    # Find processing_id by video_id
-    processing_id = None
-    for pid, data in video_store.items():
-        if data.get("video_id") == video_id and data["status"] == "completed":
-            processing_id = pid
-            break
+    # Debug: Print expected vector store path
+    vector_store_path = f"video_{video_id}"
+    actual_path = os.path.abspath(vector_store_path)
+    logger.info(f"Looking for vector store at: {actual_path}")
+    logger.info(f"Path exists? {os.path.exists(vector_store_path)}")
     
-    if processing_id is None:
-        raise HTTPException(status_code=404, detail="Video not found or not processed")
+    # Check if transcript exists
+    transcript_path = f"./transcripts/{video_id}.txt"
+    transcript_exists = os.path.exists(transcript_path)
+    logger.info(f"Transcript path: {transcript_path}, exists: {transcript_exists}")
     
+    # Check if vector store exists first
+    if not os.path.exists(vector_store_path):
+        return JSONResponse(
+            status_code=400,
+            content={
+                "error": "Video processing incomplete",
+                "message": f"The vector store for video {video_id} is not ready yet. Please check processing status first."
+            }
+        )
     try:
         # Initialize RAG chain for this video
         vector_store = VectorStore()
         vector_store.load_vector_store(f"video_{video_id}")
         
         base_retriever = vector_store.get_retriever(k=4)
-        enhanced_retriever = EnhancedRetriever(base_retriever, relevance_threshold=0.3)
+        enhanced_retriever = EnhancedRetriever(base_retriever, relevance_threshold=0.7)
         retriever = enhanced_retriever.setup_contextual_compression(vector_store.embeddings)
         
         rag_chain = RAGChain(
@@ -215,21 +263,28 @@ async def ask_question(request: QuestionRequest):
             session_manager
         )
         
-        # Create session if needed - FIXED: explicit error handling
+        # Create session if needed with video_id in metadata
         session_id = request.session_id
         try:
             if session_id is None:
+                # Create new session with video_id in metadata
                 session_id = session_manager.create_session(metadata={"video_id": video_id})
+                logger.info(f"Created new session {session_id} for video {video_id}")
             else:
                 # Verify session exists or create it
                 try:
-                    session_manager.get_session(session_id)
+                    # Get existing session and update metadata if needed
+                    session = session_manager.get_session(session_id)
+                    if "metadata" not in session or "video_id" not in session["metadata"]:
+                        session["metadata"] = {"video_id": video_id}
+                        logger.info(f"Updated metadata for existing session {session_id}")
                 except ValueError:
-                    # Session doesn't exist, create it
+                    # Session doesn't exist, create it with video_id metadata
                     session_id = session_manager.create_session(
                         session_id=session_id, 
                         metadata={"video_id": video_id}
                     )
+                    logger.info(f"Created session with ID {session_id} for video {video_id}")
         except Exception as session_error:
             logger.error(f"Session error: {str(session_error)}")
             session_id = None  # Fallback to None if session handling fails
@@ -248,3 +303,40 @@ async def ask_question(request: QuestionRequest):
     except Exception as e:
         logger.error(f"Error processing question: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/video/{processing_id}/transcript")
+async def get_video_transcript(processing_id: str):
+    """Get the transcript of a processed video."""
+    if processing_id not in video_store:
+        raise HTTPException(status_code=404, detail="Processing ID not found")
+    
+    video_data = video_store[processing_id]
+    
+    if video_data["status"] != "completed":
+        raise HTTPException(
+            status_code=400, 
+            detail=f"Video processing not completed. Current status: {video_data['status']}"
+        )
+    
+    if "transcript" not in video_data:
+        raise HTTPException(status_code=404, detail="Transcript not found for this video")
+        
+    # Return transcript and segments if available
+    response = {
+        "processing_id": processing_id,
+        "video_id": video_data["video_id"],
+        "title": video_data["title"],
+        "transcript": video_data["transcript"]
+    }
+    
+    # Add segments if available
+    if "segments" in video_data:
+        response["segments"] = video_data["segments"]
+    
+    # Add transcription source if available
+    if "transcription_source" in video_data:
+        response["transcription_source"] = video_data["transcription_source"]
+    else:
+        response["transcription_source"] = "unknown"
+        
+    return response
