@@ -5,7 +5,7 @@ import time
 import json
 
 # API endpoint
-API_URL = "http://localhost:8000"
+API_URL = "http://localhost:8001"
 
 st.set_page_config(page_title="YouTube Video QA", layout="wide")
 
@@ -133,9 +133,12 @@ with tab2:
                 try:
                     payload = {
                         "video_id": st.session_state.video_id,
-                        "question": question,
-                        "session_id": st.session_state.session_id
+                        "question": question
                     }
+                    
+                    # Only add session_id to payload if it exists
+                    if st.session_state.session_id:
+                        payload["session_id"] = st.session_state.session_id
                     
                     response = requests.post(f"{API_URL}/ask", json=payload)
                     answer_data = response.json()

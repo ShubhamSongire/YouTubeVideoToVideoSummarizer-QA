@@ -28,13 +28,20 @@ class VectorStore:
     
     def load_vector_store(self, store_name: str = "faiss_index"):
         """Load an existing vector store."""
+        # First try directly as a folder name
+        index_direct_path = f"{store_name}/index.faiss"
+        docstore_direct_path = f"{store_name}/index.pkl"
+        
+        # Then try under vector_stores directory
         index_path = f"vector_stores/{store_name}/index.faiss"
         docstore_path = f"vector_stores/{store_name}/index.pkl"
         
         logger.info(f"Attempting to load vector store: {store_name}")
         
-        if os.path.exists(index_path) and os.path.exists(docstore_path):
+        # Check if direct path exists
+        if os.path.exists(index_direct_path) and os.path.exists(docstore_direct_path):
             try:
+                logger.info(f"Found vector store files directly in: {store_name}")
                 self.vector_store = FAISS.load_local(
                     store_name, 
                     self.embeddings, 
@@ -45,8 +52,21 @@ class VectorStore:
             except Exception as e:
                 logger.error(f"Error loading vector store '{store_name}': {str(e)}")
                 raise
+        elif os.path.exists(index_path) and os.path.exists(docstore_path):
+            try:
+                logger.info(f"Found vector store files in vector_stores directory")
+                self.vector_store = FAISS.load_local(
+                    f"vector_stores/{store_name}", 
+                    self.embeddings, 
+                    allow_dangerous_deserialization=True
+                )
+                logger.info(f"Vector store '{store_name}' loaded successfully from vector_stores directory")
+                return self.vector_store
+            except Exception as e:
+                logger.error(f"Error loading vector store from vector_stores directory: {str(e)}")
+                raise
         else:
-            logger.warning(f"Vector store files for '{store_name}' not found")
+            logger.warning(f"Vector store files for '{store_name}' not found in any location")
             raise FileNotFoundError(f"Vector store files for {store_name} not found.")
     
     def save_vector_store(self, store_name: str = "faiss_index"):

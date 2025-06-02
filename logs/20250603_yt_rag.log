@@ -1,0 +1,170 @@
+2025-06-03 00:55:22,001 - backend.app.main - INFO - Transcriber initialized successfully
+2025-06-03 00:55:22,020 - backend.app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-03 00:55:22,020 - backend.app.rag_system.model - INFO - Initializing ModelManager with model=gpt-3.5-turbo, temperature=0
+2025-06-03 00:55:22,034 - backend.app.rag_system.model - INFO - LLM initialized successfully
+2025-06-03 00:56:01,953 - backend.app.main - INFO - Transcriber initialized successfully
+2025-06-03 00:56:01,971 - backend.app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-03 00:56:01,971 - backend.app.rag_system.model - INFO - Initializing ModelManager with model=gpt-3.5-turbo, temperature=0
+2025-06-03 00:56:01,985 - backend.app.rag_system.model - INFO - LLM initialized successfully
+2025-06-03 00:56:14,814 - backend.app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=bSvTVREwSNw
+2025-06-03 00:56:19,403 - backend.app.main - INFO - Transcriber initialized successfully
+2025-06-03 00:56:19,421 - backend.app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-03 00:56:19,421 - backend.app.rag_system.model - INFO - Initializing ModelManager with model=gpt-3.5-turbo, temperature=0
+2025-06-03 00:56:19,435 - backend.app.rag_system.model - INFO - LLM initialized successfully
+2025-06-03 00:56:27,513 - backend.app.main - INFO - Download completed for video bSvTVREwSNw
+2025-06-03 00:56:27,513 - backend.app.main - INFO - No subtitles found, will use Whisper for transcription
+2025-06-03 00:56:59,981 - backend.app.main - INFO - Transcription completed for video bSvTVREwSNw using whisper
+2025-06-03 00:57:02,862 - backend.app.main - INFO - Summarization completed for video bSvTVREwSNw
+2025-06-03 00:57:02,863 - backend.app.rag_system.document_processor - INFO - Initializing DocumentProcessor with chunk_size=1000, chunk_overlap=200
+2025-06-03 00:57:02,863 - backend.app.rag_system.document_processor - INFO - Loading documents from directory: ./transcripts
+2025-06-03 00:57:02,864 - backend.app.rag_system.document_processor - INFO - Successfully loaded 1 documents from ./transcripts
+2025-06-03 00:57:02,864 - backend.app.rag_system.document_processor - INFO - Splitting 1 documents into chunks
+2025-06-03 00:57:02,865 - backend.app.rag_system.document_processor - INFO - Created 8 document chunks
+2025-06-03 00:57:02,865 - backend.app.rag_system.vector_store - INFO - Initializing VectorStore with embedding model: text-embedding-3-small
+2025-06-03 00:57:02,883 - backend.app.rag_system.vector_store - INFO - Creating vector store 'video_bSvTVREwSNw' from 8 documents
+2025-06-03 00:57:04,446 - backend.app.rag_system.vector_store - INFO - Vector store created successfully
+2025-06-03 00:57:04,448 - backend.app.rag_system.vector_store - INFO - Vector store saved as video_bSvTVREwSNw.faiss and video_bSvTVREwSNw.pkl
+2025-06-03 00:57:04,448 - backend.app.main - INFO - Video processing completed for bSvTVREwSNw
+2025-06-03 00:57:08,681 - backend.app.main - INFO - Transcriber initialized successfully
+2025-06-03 00:57:08,700 - backend.app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-03 00:57:08,700 - backend.app.rag_system.model - INFO - Initializing ModelManager with model=gpt-3.5-turbo, temperature=0
+2025-06-03 00:57:08,714 - backend.app.rag_system.model - INFO - LLM initialized successfully
+2025-06-03 00:58:38,875 - backend.app.main - INFO - Transcriber initialized successfully
+2025-06-03 00:58:38,896 - backend.app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-03 00:58:38,896 - backend.app.rag_system.model - INFO - Initializing ModelManager with model=gpt-3.5-turbo, temperature=0
+2025-06-03 00:58:38,910 - backend.app.rag_system.model - INFO - LLM initialized successfully
+2025-06-03 00:59:30,430 - backend.app.main - INFO - Transcriber initialized successfully
+2025-06-03 00:59:30,449 - backend.app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-03 00:59:30,449 - backend.app.rag_system.model - INFO - Initializing ModelManager with model=gpt-3.5-turbo, temperature=0
+2025-06-03 00:59:30,463 - backend.app.rag_system.model - INFO - LLM initialized successfully
+2025-06-03 00:59:39,585 - backend.app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=bDVpI23q8Zg
+2025-06-03 01:00:13,903 - backend.app.main - INFO - Download completed for video bDVpI23q8Zg
+2025-06-03 01:00:13,904 - backend.app.main - INFO - Using existing subtitles found at: ./downloads/bDVpI23q8Zg.en.vtt
+2025-06-03 01:00:16,995 - backend.app.main - INFO - Transcription completed for video bDVpI23q8Zg using captions
+2025-06-03 01:00:17,926 - backend.app.main - ERROR - Error processing video: Error code: 400 - {'error': {'message': "This model's maximum context length is 16385 tokens. However, your messages resulted in 83162 tokens. Please reduce the length of the messages.", 'type': 'invalid_request_error', 'param': 'messages', 'code': 'context_length_exceeded'}}
+2025-06-03 01:01:16,017 - backend.app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=rwF-X5STYks
+2025-06-03 01:01:23,202 - backend.app.main - INFO - Download completed for video rwF-X5STYks
+2025-06-03 01:01:23,202 - backend.app.main - INFO - No subtitles found, will use Whisper for transcription
+2025-06-03 01:01:36,167 - backend.app.main - INFO - Transcription completed for video rwF-X5STYks using whisper
+2025-06-03 01:01:38,140 - backend.app.main - INFO - Summarization completed for video rwF-X5STYks
+2025-06-03 01:01:38,141 - backend.app.rag_system.document_processor - INFO - Initializing DocumentProcessor with chunk_size=1000, chunk_overlap=200
+2025-06-03 01:01:38,141 - backend.app.rag_system.document_processor - INFO - Loading documents from directory: ./transcripts
+2025-06-03 01:01:38,142 - backend.app.rag_system.document_processor - INFO - Successfully loaded 2 documents from ./transcripts
+2025-06-03 01:01:38,142 - backend.app.rag_system.document_processor - INFO - Splitting 2 documents into chunks
+2025-06-03 01:01:38,144 - backend.app.rag_system.document_processor - INFO - Created 10 document chunks
+2025-06-03 01:01:38,144 - backend.app.rag_system.vector_store - INFO - Initializing VectorStore with embedding model: text-embedding-3-small
+2025-06-03 01:01:38,163 - backend.app.rag_system.vector_store - INFO - Creating vector store 'video_rwF-X5STYks' from 10 documents
+2025-06-03 01:01:39,818 - backend.app.rag_system.vector_store - INFO - Vector store created successfully
+2025-06-03 01:01:39,820 - backend.app.rag_system.vector_store - INFO - Vector store saved as video_rwF-X5STYks.faiss and video_rwF-X5STYks.pkl
+2025-06-03 01:01:39,820 - backend.app.main - INFO - Video processing completed for rwF-X5STYks
+2025-06-03 01:02:07,757 - backend.app.main - INFO - Looking for vector store at: /Users/L058428/experiments/yt_rag/video_rwF-X5STYks
+2025-06-03 01:02:07,757 - backend.app.main - INFO - Path exists? True
+2025-06-03 01:02:07,758 - backend.app.main - INFO - Transcript path: ./transcripts/rwF-X5STYks.txt, exists: True
+2025-06-03 01:02:07,758 - backend.app.rag_system.vector_store - INFO - Initializing VectorStore with embedding model: text-embedding-3-small
+2025-06-03 01:02:07,779 - backend.app.rag_system.vector_store - INFO - Attempting to load vector store: video_rwF-X5STYks
+2025-06-03 01:02:07,779 - backend.app.rag_system.vector_store - WARNING - Vector store files for 'video_rwF-X5STYks' not found
+2025-06-03 01:02:07,779 - backend.app.main - ERROR - Error processing question: Vector store files for video_rwF-X5STYks not found.
+2025-06-03 01:06:17,757 - backend.app.main - INFO - Transcriber initialized successfully
+2025-06-03 01:06:17,776 - backend.app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-03 01:06:17,776 - backend.app.rag_system.model - INFO - Initializing ModelManager with model=gpt-3.5-turbo, temperature=0
+2025-06-03 01:06:17,790 - backend.app.rag_system.model - INFO - LLM initialized successfully
+2025-06-03 01:06:38,777 - backend.app.main - INFO - Transcriber initialized successfully
+2025-06-03 01:06:38,795 - backend.app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-03 01:06:38,795 - backend.app.rag_system.model - INFO - Initializing ModelManager with model=gpt-3.5-turbo, temperature=0
+2025-06-03 01:06:38,809 - backend.app.rag_system.model - INFO - LLM initialized successfully
+2025-06-03 01:06:52,778 - backend.app.main - INFO - Transcriber initialized successfully
+2025-06-03 01:06:52,797 - backend.app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-03 01:06:52,797 - backend.app.rag_system.model - INFO - Initializing ModelManager with model=gpt-3.5-turbo, temperature=0
+2025-06-03 01:06:52,811 - backend.app.rag_system.model - INFO - LLM initialized successfully
+2025-06-03 01:07:03,268 - backend.app.main - INFO - Transcriber initialized successfully
+2025-06-03 01:07:03,288 - backend.app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-03 01:07:03,288 - backend.app.rag_system.model - INFO - Initializing ModelManager with model=gpt-3.5-turbo, temperature=0
+2025-06-03 01:07:03,302 - backend.app.rag_system.model - INFO - LLM initialized successfully
+2025-06-03 01:07:41,199 - backend.app.main - INFO - Transcriber initialized successfully
+2025-06-03 01:07:41,217 - backend.app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-03 01:07:41,217 - backend.app.rag_system.model - INFO - Initializing ModelManager with model=gpt-3.5-turbo, temperature=0
+2025-06-03 01:07:41,235 - backend.app.rag_system.model - INFO - LLM initialized successfully
+2025-06-03 01:08:13,766 - backend.app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=rwF-X5STYks
+2025-06-03 01:08:21,933 - backend.app.main - INFO - Download completed for video rwF-X5STYks
+2025-06-03 01:08:21,933 - backend.app.main - INFO - No subtitles found, will use Whisper for transcription
+2025-06-03 01:08:33,102 - backend.app.main - INFO - Transcription completed for video rwF-X5STYks using whisper
+2025-06-03 01:08:34,746 - backend.app.main - INFO - Summarization completed for video rwF-X5STYks
+2025-06-03 01:08:34,747 - backend.app.rag_system.document_processor - INFO - Initializing DocumentProcessor with chunk_size=1000, chunk_overlap=200
+2025-06-03 01:08:34,747 - backend.app.rag_system.document_processor - INFO - Loading documents from directory: ./transcripts
+2025-06-03 01:08:34,748 - backend.app.rag_system.document_processor - INFO - Successfully loaded 2 documents from ./transcripts
+2025-06-03 01:08:34,749 - backend.app.rag_system.document_processor - INFO - Splitting 2 documents into chunks
+2025-06-03 01:08:34,750 - backend.app.rag_system.document_processor - INFO - Created 10 document chunks
+2025-06-03 01:08:34,750 - backend.app.rag_system.vector_store - INFO - Initializing VectorStore with embedding model: text-embedding-3-small
+2025-06-03 01:08:34,767 - backend.app.rag_system.vector_store - INFO - Creating vector store 'video_rwF-X5STYks' from 10 documents
+2025-06-03 01:08:37,521 - backend.app.rag_system.vector_store - INFO - Vector store created successfully
+2025-06-03 01:08:37,523 - backend.app.rag_system.vector_store - INFO - Vector store saved as video_rwF-X5STYks.faiss and video_rwF-X5STYks.pkl
+2025-06-03 01:08:37,523 - backend.app.main - INFO - Video processing completed for rwF-X5STYks
+2025-06-03 01:08:43,956 - backend.app.main - INFO - Looking for vector store at: /Users/L058428/experiments/yt_rag/video_rwF-X5STYks
+2025-06-03 01:08:43,956 - backend.app.main - INFO - Path exists? True
+2025-06-03 01:08:43,957 - backend.app.main - INFO - Transcript path: ./transcripts/rwF-X5STYks.txt, exists: True
+2025-06-03 01:08:43,957 - backend.app.rag_system.vector_store - INFO - Initializing VectorStore with embedding model: text-embedding-3-small
+2025-06-03 01:08:43,977 - backend.app.rag_system.vector_store - INFO - Attempting to load vector store: video_rwF-X5STYks
+2025-06-03 01:08:43,977 - backend.app.rag_system.vector_store - INFO - Found vector store files directly in: video_rwF-X5STYks
+2025-06-03 01:08:43,979 - backend.app.rag_system.vector_store - INFO - Vector store 'video_rwF-X5STYks' loaded successfully
+2025-06-03 01:08:43,979 - backend.app.rag_system.vector_store - INFO - Creating retriever with search_type=similarity_score_threshold, k=4, score_threshold=0.7
+2025-06-03 01:08:43,979 - backend.app.rag_system.retriever - INFO - Initializing EnhancedRetriever with threshold=0.7
+2025-06-03 01:08:43,979 - backend.app.rag_system.retriever - INFO - Setting up contextual compression retriever
+2025-06-03 01:08:43,979 - backend.app.rag_system.retriever - INFO - Contextual compression retriever created successfully
+2025-06-03 01:08:43,979 - backend.app.rag_system.rag_chain - INFO - Initializing RAG Chain
+2025-06-03 01:08:43,979 - backend.app.rag_system.rag_chain - INFO - Building RAG chain
+2025-06-03 01:08:43,979 - backend.app.rag_system.model - INFO - Creating prompt template
+2025-06-03 01:08:43,979 - backend.app.rag_system.model - INFO - Prompt template created successfully
+2025-06-03 01:08:43,979 - backend.app.rag_system.rag_chain - INFO - Assembling RAG chain components
+2025-06-03 01:08:43,984 - backend.app.rag_system.rag_chain - INFO - RAG chain built successfully
+2025-06-03 01:08:43,984 - backend.app.rag_system.rag_chain - INFO - RAG Chain initialized successfully
+2025-06-03 01:08:43,984 - backend.app.rag_system.memory - INFO - Generated new session ID: 9b902b3b-9cfe-4406-a23d-0543454d7db3
+2025-06-03 01:08:43,985 - backend.app.rag_system.memory - INFO - Creating new session: 9b902b3b-9cfe-4406-a23d-0543454d7db3 with metadata: {'video_id': 'rwF-X5STYks'}
+2025-06-03 01:08:43,985 - backend.app.main - INFO - Created new session 9b902b3b-9cfe-4406-a23d-0543454d7db3 for video rwF-X5STYks
+2025-06-03 01:08:43,985 - backend.app.main - INFO - Processing question for video rwF-X5STYks: hi
+2025-06-03 01:08:43,985 - backend.app.rag_system.rag_chain - INFO - RAG Chain invoked with question: hi...
+2025-06-03 01:08:43,985 - backend.app.rag_system.memory - INFO - Adding user message to session 9b902b3b-9cfe-4406-a23d-0543454d7db3
+2025-06-03 01:08:43,985 - backend.app.rag_system.rag_chain - INFO - Executing RAG chain
+2025-06-03 01:08:43,995 - backend.app.rag_system.rag_chain - INFO - Getting context for question: hi...
+2025-06-03 01:08:46,079 - backend.app.rag_system.rag_chain - WARNING - No relevant documents found for context
+2025-06-03 01:08:46,079 - backend.app.rag_system.rag_chain - INFO - Getting transcript for video ID: rwF-X5STYks
+2025-06-03 01:08:46,080 - backend.app.rag_system.rag_chain - INFO - Using full transcript as context since no relevant chunks were found
+2025-06-03 01:08:46,083 - backend.app.rag_system.rag_chain - INFO - Generating answer from context and question
+2025-06-03 01:08:46,992 - backend.app.rag_system.rag_chain - INFO - RAG chain execution completed in 3.01s
+2025-06-03 01:08:46,992 - backend.app.rag_system.memory - INFO - Adding AI message to session 9b902b3b-9cfe-4406-a23d-0543454d7db3
+2025-06-03 01:08:58,765 - backend.app.main - INFO - Looking for vector store at: /Users/L058428/experiments/yt_rag/video_rwF-X5STYks
+2025-06-03 01:08:58,765 - backend.app.main - INFO - Path exists? True
+2025-06-03 01:08:58,766 - backend.app.main - INFO - Transcript path: ./transcripts/rwF-X5STYks.txt, exists: True
+2025-06-03 01:08:58,766 - backend.app.rag_system.vector_store - INFO - Initializing VectorStore with embedding model: text-embedding-3-small
+2025-06-03 01:08:58,787 - backend.app.rag_system.vector_store - INFO - Attempting to load vector store: video_rwF-X5STYks
+2025-06-03 01:08:58,787 - backend.app.rag_system.vector_store - INFO - Found vector store files directly in: video_rwF-X5STYks
+2025-06-03 01:08:58,788 - backend.app.rag_system.vector_store - INFO - Vector store 'video_rwF-X5STYks' loaded successfully
+2025-06-03 01:08:58,788 - backend.app.rag_system.vector_store - INFO - Creating retriever with search_type=similarity_score_threshold, k=4, score_threshold=0.7
+2025-06-03 01:08:58,789 - backend.app.rag_system.retriever - INFO - Initializing EnhancedRetriever with threshold=0.7
+2025-06-03 01:08:58,789 - backend.app.rag_system.retriever - INFO - Setting up contextual compression retriever
+2025-06-03 01:08:58,789 - backend.app.rag_system.retriever - INFO - Contextual compression retriever created successfully
+2025-06-03 01:08:58,789 - backend.app.rag_system.rag_chain - INFO - Initializing RAG Chain
+2025-06-03 01:08:58,789 - backend.app.rag_system.rag_chain - INFO - Building RAG chain
+2025-06-03 01:08:58,789 - backend.app.rag_system.model - INFO - Creating prompt template
+2025-06-03 01:08:58,789 - backend.app.rag_system.model - INFO - Prompt template created successfully
+2025-06-03 01:08:58,789 - backend.app.rag_system.rag_chain - INFO - Assembling RAG chain components
+2025-06-03 01:08:58,790 - backend.app.rag_system.rag_chain - INFO - RAG chain built successfully
+2025-06-03 01:08:58,790 - backend.app.rag_system.rag_chain - INFO - RAG Chain initialized successfully
+2025-06-03 01:08:58,790 - backend.app.main - INFO - Processing question for video rwF-X5STYks: give me another heading for this video
+2025-06-03 01:08:58,790 - backend.app.rag_system.rag_chain - INFO - RAG Chain invoked with question: give me another heading for this video...
+2025-06-03 01:08:58,790 - backend.app.rag_system.memory - INFO - Adding user message to session 9b902b3b-9cfe-4406-a23d-0543454d7db3
+2025-06-03 01:08:58,790 - backend.app.rag_system.rag_chain - INFO - Executing RAG chain
+2025-06-03 01:08:58,792 - backend.app.rag_system.rag_chain - INFO - Getting context for question: give me another heading for this video...
+2025-06-03 01:08:59,810 - backend.app.rag_system.rag_chain - WARNING - No relevant documents found for context
+2025-06-03 01:08:59,810 - backend.app.rag_system.rag_chain - INFO - Getting transcript for video ID: rwF-X5STYks
+2025-06-03 01:08:59,811 - backend.app.rag_system.rag_chain - INFO - Using full transcript as context since no relevant chunks were found
+2025-06-03 01:08:59,812 - backend.app.rag_system.rag_chain - INFO - Generating answer from context and question
+2025-06-03 01:09:00,500 - backend.app.rag_system.rag_chain - INFO - RAG chain execution completed in 1.71s
+2025-06-03 01:09:00,501 - backend.app.rag_system.memory - INFO - Adding AI message to session 9b902b3b-9cfe-4406-a23d-0543454d7db3
+2025-06-03 01:10:30,168 - backend.app.main - INFO - Transcriber initialized successfully
+2025-06-03 01:10:30,168 - backend.app.main - INFO - Transcriber initialized successfully
+2025-06-03 01:10:30,186 - backend.app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-03 01:10:30,186 - backend.app.rag_system.model - INFO - Initializing ModelManager with model=gpt-3.5-turbo, temperature=0
+2025-06-03 01:10:30,186 - backend.app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-03 01:10:30,187 - backend.app.rag_system.model - INFO - Initializing ModelManager with model=gpt-3.5-turbo, temperature=0
+2025-06-03 01:10:30,201 - backend.app.rag_system.model - INFO - LLM initialized successfully
+2025-06-03 01:10:30,201 - backend.app.rag_system.model - INFO - LLM initialized successfully

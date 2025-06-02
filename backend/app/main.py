@@ -8,16 +8,16 @@ from fastapi.responses import JSONResponse
 from dotenv import load_dotenv
 
 # Import your existing components
-from app.rag_system.document_processor import DocumentProcessor
-from app.rag_system.vector_store import VectorStore
-from app.rag_system.memory import SessionManager
-from app.rag_system.model import ModelManager
-from app.rag_system.retriever import EnhancedRetriever
-from app.rag_system.rag_chain import RAGChain
-from app.core.video_processor import VideoProcessor
-from app.core.transcriber import Transcriber
-from app.core.summarizer import TextSummarizer
-from app.rag_system.logger import setup_logger
+from .rag_system.document_processor import DocumentProcessor
+from .rag_system.vector_store import VectorStore
+from .rag_system.memory import SessionManager
+from .rag_system.model import ModelManager
+from .rag_system.retriever import EnhancedRetriever
+from .rag_system.rag_chain import RAGChain
+from .core.video_processor import VideoProcessor
+from .core.transcriber import Transcriber
+from .core.summarizer import TextSummarizer
+from .rag_system.logger import setup_logger
 
 # Load environment variables
 load_dotenv()
