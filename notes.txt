@@ -1,0 +1,41 @@
+API Key Rotation System for Gemini
+I've created a system that rotates through multiple API keys for the Gemini model in a round-robin fashion. Here's what I did:
+
+1. Created an APIKeyManager Class
+This class manages a collection of API keys and provides them in rotation:
+
+Loads API keys from environment variables
+Thread-safe rotation through keys
+Can be initialized directly with keys or from environment variables
+2. Updated the ModelManager Class
+The ModelManager now:
+
+Uses the APIKeyManager to handle multiple keys
+Has a get_llm() method to get a fresh LLM instance with the next API key
+Rotates keys automatically with each request
+3. Updated the RAG Chain
+Modified the RAG chain to:
+
+Get a new LLM instance with a rotated API key for each request
+Rebuild the chain with the new LLM
+4. Updated .env Configuration
+Updated the .env file to support multiple keys:
+
+Uses GOOGLE_API_KEY for the base key
+Uses GOOGLE_API_KEY_1, GOOGLE_API_KEY_2, etc., for additional keys
+5. Created a Test Script
+Created a test script to verify API key rotation works correctly.
+
+How to Use the API Key Rotation
+Set up your API keys in .env Replace the placeholders in the .env file with your actual API keys:
+
+Use the System as Normal The key rotation happens automatically in the background, distributing requests across your keys.
+
+To Test the System Run the test script:
+
+Benefits
+Load Balancing: Distributes API requests across multiple keys to avoid rate limits
+Fault Tolerance: If one key becomes invalid or hits rate limits, others will still work
+Extended Capacity: Allows higher throughput by using multiple keys
+Transparent Usage: The rotation happens automatically without changing your application logic
+The ModelManager will log which key is being used (showing only the last 4 characters for security), so you can monitor key rotation in your logs.
