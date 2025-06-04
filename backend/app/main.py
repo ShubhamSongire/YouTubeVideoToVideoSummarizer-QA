@@ -1,7 +1,9 @@
 from fastapi import FastAPI, HTTPException, BackgroundTasks
 from pydantic import BaseModel, HttpUrl
 import os
-from typing import Dict, List, Optional
+import glob
+import shutil
+from typing import Dict, List, Optional, Union
 import uuid
 import time
 from fastapi.responses import JSONResponse
@@ -19,6 +21,7 @@ from .core.video_processor import VideoProcessor
 from .core.transcriber import Transcriber
 from .core.summarizer import TextSummarizer
 from .rag_system.logger import setup_logger
+from .cleanup import cleanup_video_files, cleanup_all_files, recreate_directories
 
 # Load environment variables
 load_dotenv()
@@ -40,7 +43,12 @@ app.add_middleware(
 
 # Create required directories
 def create_required_directories():
-    dirs = ["./downloads", "./transcripts", "./logs"]
+    dirs = [
+        "./downloads", 
+        "./downloads/transcripts",
+        "./downloads/vector_stores", 
+        "./downloads/logs"
+    ]
     for dir_path in dirs:
         if not os.path.exists(dir_path):
             os.makedirs(dir_path)
@@ -167,15 +175,15 @@ async def process_video_task(processing_id: str, youtube_url: str):
         # Create vector store for this video
         video_store[processing_id]["steps"]["vectorization"] = "in_progress"
         
-        # Create a document from transcript
-        os.makedirs("./transcripts", exist_ok=True)
-        text_path = f"./transcripts/{video_id}.txt"
+        # Create a document from transcript - store in downloads folder
+        os.makedirs("./downloads/transcripts", exist_ok=True)
+        text_path = f"./downloads/transcripts/{video_id}.txt"
         with open(text_path, "w") as f:
             f.write(video_store[processing_id]["transcript"])
             
         # Process the document for RAG
         doc_processor = DocumentProcessor()
-        docs = doc_processor.load_documents("./transcripts")
+        docs = doc_processor.load_documents("./downloads/transcripts")
         chunks = doc_processor.split_documents(docs)
         
         # Create vector store
@@ -231,8 +239,12 @@ async def check_processing_status(processing_id: str):
     # Add vector store status to the response
     vector_store_exists = False
     if "video_id" in data:
-        vector_store_path = f"vector_stores/video_{data['video_id']}"
-        vector_store_exists = os.path.exists(vector_store_path)
+        video_id = data['video_id']
+        vector_store_name = f"video_{video_id}"
+        vector_store_path = os.path.join("./downloads/vector_stores", vector_store_name)
+        index_path = f"{vector_store_path}/index.faiss"
+        docstore_path = f"{vector_store_path}/index.pkl"
+        vector_store_exists = os.path.exists(index_path) and os.path.exists(docstore_path)
     
     return {
         "status": data["status"],
@@ -249,19 +261,21 @@ async def ask_question(request: QuestionRequest):
     """Ask a question about a specific video."""
     video_id = request.video_id
     
-    # Debug: Print expected vector store path
-    vector_store_path = f"video_{video_id}"
-    actual_path = os.path.abspath(vector_store_path)
-    logger.info(f"Looking for vector store at: {actual_path}")
-    logger.info(f"Path exists? {os.path.exists(vector_store_path)}")
+    # Debug: Print expected vector store path in downloads folder
+    vector_store_name = f"video_{video_id}"
+    vector_store_path = os.path.join("./downloads/vector_stores", vector_store_name)
+    index_path = f"{vector_store_path}/index.faiss"
+    docstore_path = f"{vector_store_path}/index.pkl"
+    logger.info(f"Looking for vector store at: {vector_store_path}")
+    logger.info(f"Index exists? {os.path.exists(index_path)}, Docstore exists? {os.path.exists(docstore_path)}")
     
     # Check if transcript exists
-    transcript_path = f"./transcripts/{video_id}.txt"
+    transcript_path = f"./downloads/transcripts/{video_id}.txt"
     transcript_exists = os.path.exists(transcript_path)
     logger.info(f"Transcript path: {transcript_path}, exists: {transcript_exists}")
     
-    # Check if vector store exists first
-    if not os.path.exists(vector_store_path):
+    # Check if vector store exists first in downloads folder
+    if not (os.path.exists(index_path) and os.path.exists(docstore_path)):
         return JSONResponse(
             status_code=400,
             content={
@@ -361,3 +375,95 @@ async def get_video_transcript(processing_id: str):
         response["transcription_source"] = "unknown"
         
     return response
+
+@app.post("/cleanup")
+async def cleanup():
+    """Cleanup utility to remove processed video files and data."""
+    try:
+        # Log cleanup start
+        logger.info("Starting cleanup of processed videos and data")
+        
+        # Remove downloads folder
+        if os.path.exists("./downloads"):
+            shutil.rmtree("./downloads")
+            logger.info("Removed downloads folder")
+        
+        # Clear in-memory video store
+        video_store.clear()
+        logger.info("Cleared in-memory video store")
+        
+        # Recreate necessary directories
+        recreate_directories()
+        
+        return {"status": "success", "message": "Cleanup completed"}
+    
+    except Exception as e:
+        logger.error(f"Error during cleanup: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+class CleanupRequest(BaseModel):
+    video_id: Optional[str] = None
+    clear_memory: bool = True  # Whether to clear from in-memory store too
+
+@app.post("/cleanup/video")
+async def cleanup_video(request: CleanupRequest):
+    """Cleanup files for a specific video."""
+    try:
+        video_id = request.video_id
+        
+        if not video_id:
+            raise HTTPException(status_code=400, detail="video_id is required")
+        
+        # Log cleanup start
+        logger.info(f"Starting cleanup for video {video_id}")
+        
+        # Clean up files
+        deleted_counts = cleanup_video_files(video_id)
+        
+        # Clear from in-memory store if requested
+        if request.clear_memory:
+            # Find all processing IDs that match this video_id
+            processing_ids_to_remove = []
+            for processing_id, data in video_store.items():
+                if data.get("video_id") == video_id:
+                    processing_ids_to_remove.append(processing_id)
+            
+            # Remove from video store
+            for processing_id in processing_ids_to_remove:
+                video_store.pop(processing_id, None)
+                logger.info(f"Removed video {video_id} from in-memory store (processing_id: {processing_id})")
+        
+        return {
+            "status": "success", 
+            "message": f"Cleanup completed for video {video_id}",
+            "deleted": deleted_counts
+        }
+    
+    except Exception as e:
+        logger.error(f"Error during video cleanup: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/cleanup/all")
+async def cleanup_all(request: CleanupRequest):
+    """Cleanup all files but maintain directory structure."""
+    try:
+        # Log cleanup start
+        logger.info("Starting cleanup of all files")
+        
+        # Clean up all files
+        deleted_counts = cleanup_all_files()
+        
+        # Clear in-memory store if requested
+        if request.clear_memory:
+            video_store.clear()
+            logger.info("Cleared in-memory video store")
+        
+        return {
+            "status": "success", 
+            "message": "All files cleaned up",
+            "deleted": deleted_counts
+        }
+    
+    except Exception as e:
+        logger.error(f"Error during cleanup: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))

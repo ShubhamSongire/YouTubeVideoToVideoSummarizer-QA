@@ -18,9 +18,13 @@ class VectorStore:
         """Create a new vector store from documents."""
         logger.info(f"Creating vector store '{store_name}' from {len(documents)} documents")
         try:
+            # Ensure downloads directory exists
+            os.makedirs("./downloads/vector_stores", exist_ok=True)
+            store_path = os.path.join("./downloads/vector_stores", store_name)
+            
             self.vector_store = FAISS.from_documents(documents, self.embeddings)
             logger.info(f"Vector store created successfully")
-            self.save_vector_store(store_name)
+            self.save_vector_store(store_path)
             return self.vector_store
         except Exception as e:
             logger.error(f"Error creating vector store: {str(e)}")
@@ -28,18 +32,36 @@ class VectorStore:
     
     def load_vector_store(self, store_name: str = "faiss_index"):
         """Load an existing vector store."""
-        # First try directly as a folder name
+        # First try in downloads/vector_stores directory (preferred location)
+        downloads_index_path = f"./downloads/vector_stores/{store_name}/index.faiss"
+        downloads_docstore_path = f"./downloads/vector_stores/{store_name}/index.pkl"
+        
+        # For backward compatibility, check direct path
         index_direct_path = f"{store_name}/index.faiss"
         docstore_direct_path = f"{store_name}/index.pkl"
         
-        # Then try under vector_stores directory
+        # For backward compatibility, check old vector_stores directory
         index_path = f"vector_stores/{store_name}/index.faiss"
         docstore_path = f"vector_stores/{store_name}/index.pkl"
         
         logger.info(f"Attempting to load vector store: {store_name}")
         
-        # Check if direct path exists
-        if os.path.exists(index_direct_path) and os.path.exists(docstore_direct_path):
+        # First check downloads directory (preferred location)
+        if os.path.exists(downloads_index_path) and os.path.exists(downloads_docstore_path):
+            try:
+                logger.info(f"Found vector store files in downloads/vector_stores directory")
+                self.vector_store = FAISS.load_local(
+                    f"./downloads/vector_stores/{store_name}", 
+                    self.embeddings, 
+                    allow_dangerous_deserialization=True
+                )
+                logger.info(f"Vector store '{store_name}' loaded successfully from downloads directory")
+                return self.vector_store
+            except Exception as e:
+                logger.error(f"Error loading vector store from downloads directory: {str(e)}")
+                raise
+        # Check if direct path exists (backward compatibility)
+        elif os.path.exists(index_direct_path) and os.path.exists(docstore_direct_path):
             try:
                 logger.info(f"Found vector store files directly in: {store_name}")
                 self.vector_store = FAISS.load_local(
@@ -52,6 +74,7 @@ class VectorStore:
             except Exception as e:
                 logger.error(f"Error loading vector store '{store_name}': {str(e)}")
                 raise
+        # Check old vector_stores directory (backward compatibility)
         elif os.path.exists(index_path) and os.path.exists(docstore_path):
             try:
                 logger.info(f"Found vector store files in vector_stores directory")

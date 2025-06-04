@@ -5,8 +5,9 @@ from datetime import datetime
 
 def setup_logger(name, log_level=logging.INFO):
     """Configure and return a logger instance."""
-    # Create logs directory if it doesn't exist
-    os.makedirs('logs', exist_ok=True)
+    # Create logs directory under downloads folder if it doesn't exist
+    logs_dir = os.path.join('./downloads/logs')
+    os.makedirs(logs_dir, exist_ok=True)
     
     # Create logger
     logger = logging.getLogger(name)
@@ -21,7 +22,7 @@ def setup_logger(name, log_level=logging.INFO):
         console_handler.setFormatter(console_format)
         
         # File handler
-        log_filename = f"logs/{datetime.now().strftime('%Y%m%d')}_yt_rag.log"
+        log_filename = f"{logs_dir}/{datetime.now().strftime('%Y%m%d')}_yt_rag.log"
         file_handler = logging.FileHandler(log_filename)
         file_handler.setLevel(log_level)
         file_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
