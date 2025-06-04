@@ -4,13 +4,32 @@ import requests
 import time
 import json
 import os
+from requests.exceptions import ConnectionError, Timeout
 
 # API endpoint - use environment variable if available, otherwise default to localhost
 API_URL = os.environ.get("API_URL", "http://localhost:8080")
 
-st.set_page_config(page_title="YouTube Video QA", layout="wide")
+st.set_page_config(page_title="YouTube Video QA System", layout="wide")
+
+# Check if API is available
+api_available = False
+api_version = "unknown"
+try:
+    response = requests.get(f"{API_URL}/", timeout=5)
+    if response.status_code == 200:
+        api_available = True
+        api_data = response.json()
+        api_version = api_data.get("service", "YouTube Video QA API")
+except (ConnectionError, Timeout):
+    api_available = False
 
 st.title("🎥 YouTube Video QA System")
+
+# Display API status
+if api_available:
+    st.success(f"✅ Connected to backend API: {api_version}")
+else:
+    st.error(f"❌ Backend API not available at {API_URL}. Some features may not work.")
 
 # Session state initialization
 if 'processing_id' not in st.session_state:
@@ -293,43 +312,61 @@ with tab3:
 with tab4:
     st.header("Cleanup Options")
     
-    if st.session_state.video_id:
-        # Current video info
-        st.subheader("Current Video")
-        st.info(f"**Video ID:** {st.session_state.video_id}")
-        if st.session_state.video_title:
-            st.info(f"**Title:** {st.session_state.video_title}")
-        
-        # Cleanup current video section
-        st.markdown("### Clean Current Video")
-        st.write("""
-        This will remove all files related to the current video from the server, including:
-        - Audio files
-        - Transcript files
-        - Vector store files (used for answering questions)
-        
-        Your chat history will also be reset.
-        """)
-        cleanup_video_btn = st.button("Clean Current Video", key="cleanup_tab_btn")
-        
-        if cleanup_video_btn:
-            with st.spinner("Cleaning up video files..."):
-                try:
-                    # Call API to clean up current video
-                    response = requests.post(
-                        f"{API_URL}/cleanup/video",
-                        json={
-                            "video_id": st.session_state.video_id,
-                            "clear_memory": True
-                        }
-                    )
-                    if response.status_code == 200:
-                        cleanup_data = response.json()
-                        st.success(f"Video cleaned up successfully! Deleted {sum(cleanup_data['deleted'].values())} files.")
-                        
-                        # Reset session state
-                        st.session_state.processing_id = None
-                        st.session_state.video_id = None
+    col1, col2 = st.columns([1, 1])
+    
+    with col1:
+        if st.session_state.video_id:
+            # Current video info
+            st.subheader("Current Video")
+            st.info(f"**Video ID:** {st.session_state.video_id}")
+            if st.session_state.video_title:
+                st.info(f"**Title:** {st.session_state.video_title}")
+            
+            # Cleanup current video section
+            st.markdown("### Clean Current Video")
+            st.write("""
+            This will remove all files related to the current video from the server, including:
+            - Audio files
+            - Transcript files
+            - Vector store files (used for answering questions)
+            
+            Your chat history will also be reset.
+            """)
+            cleanup_video_btn = st.button("Clean Current Video", key="cleanup_tab_btn", 
+                                        help="Delete files for only the current video")
+            
+            if cleanup_video_btn:
+                with st.spinner("Cleaning up video files..."):
+                    try:
+                        # Call API to clean up current video
+                        response = requests.post(
+                            f"{API_URL}/cleanup/video",
+                            json={
+                                "video_id": st.session_state.video_id,
+                                "clear_memory": True
+                            },
+                            timeout=30  # Add timeout for better error handling
+                        )
+                        if response.status_code == 200:
+                            cleanup_data = response.json()
+                            st.success(f"Video cleaned up successfully! Deleted {sum(cleanup_data['deleted'].values())} files.")
+                            
+                            # Reset session state
+                            st.session_state.processing_id = None
+                            st.session_state.video_id = None
+                            st.session_state.video_title = None
+                            st.session_state.chat_history = []
+                            st.session_state.session_id = None
+                            
+                            # Display notification to refresh
+                            st.info("Please refresh the page to process another video.")
+                            st.button("Refresh Page", on_click=lambda: st.experimental_rerun())
+                        else:
+                            st.error(f"Error: {response.status_code} - {response.text}")
+                    except requests.exceptions.RequestException as e:
+                        st.error(f"Connection error: {str(e)}")
+                    except Exception as e:
+                        st.error(f"Error during cleanup: {str(e)}")
                         st.session_state.video_title = None
                         st.session_state.session_id = None
                         st.session_state.chat_history = []
