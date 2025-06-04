@@ -1,29 +1,35 @@
-# backend/.gitignore
 # Python
-backend/__pycache__/
+__pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
-backend/venv/
+venv/
 ENV/
 env/
-backend/downloads/
-backend/transcripts/
-*.pkl
-*.faiss
 del-pyvenv.cfg
-structure.txt
-.env
-backend/.env
-frontend/streamlit/venv/
-frontend/react/.env
-notes.txt
-backend/logs
-# Exclude all downloads directories and their contents
+
+# Project specific directories
 downloads/
 backend/downloads/
-# Exclude logs
+transcripts/
+backend/transcripts/
 logs/
-# Exclude environment files
+backend/logs/
+
+# Data files
+*.pkl
+*.faiss
+
+# Configuration and sensitive files
 .env
+backend/.env
+frontend/streamlit/.env
+frontend/react/.env
+structure.txt
+notes.txt
+
+# Virtual environments
+backend/venv/
+frontend/streamlit/venv/
+frontend/react/node_modules/
