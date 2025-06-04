@@ -1,0 +1,22 @@
+# backend/.gitignore
+# Python
+backend/__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+backend/venv/
+ENV/
+env/
+backend/downloads/
+backend/transcripts/
+*.pkl
+*.faiss
+del-pyvenv.cfg
+structure.txt
+.env
+backend/.env
+frontend/streamlit/venv/
+frontend/react/.env
+notes.txt
+backend/logs
