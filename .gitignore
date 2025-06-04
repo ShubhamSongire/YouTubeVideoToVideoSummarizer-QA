@@ -20,3 +20,10 @@ frontend/streamlit/venv/
 frontend/react/.env
 notes.txt
 backend/logs
+# Exclude all downloads directories and their contents
+downloads/
+backend/downloads/
+# Exclude logs
+logs/
+# Exclude environment files
+.env
