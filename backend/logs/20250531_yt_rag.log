@@ -1,0 +1,18 @@
+2025-05-31 02:02:35,962 - app.main - INFO - Transcriber initialized successfully
+2025-05-31 02:02:35,988 - app.rag_system.memory - INFO - Initializing SessionManager
+2025-05-31 02:02:35,988 - app.rag_system.model - INFO - Initializing ModelManager with model=gpt-3.5-turbo, temperature=0
+2025-05-31 02:02:36,002 - app.rag_system.model - INFO - LLM initialized successfully
+2025-05-31 02:02:44,577 - app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=bDVpI23q8Zg
+2025-05-31 02:03:14,221 - app.main - INFO - Download completed for video bDVpI23q8Zg
+2025-05-31 02:05:48,764 - app.main - INFO - Transcription completed for video bDVpI23q8Zg
+2025-05-31 02:05:52,468 - app.main - INFO - Summarization completed for video bDVpI23q8Zg
+2025-05-31 02:05:52,470 - app.rag_system.document_processor - INFO - Initializing DocumentProcessor with chunk_size=1000, chunk_overlap=200
+2025-05-31 02:05:52,470 - app.rag_system.document_processor - INFO - Loading documents from directory: ./transcripts
+2025-05-31 02:05:52,480 - app.rag_system.document_processor - INFO - Successfully loaded 1 documents from ./transcripts
+2025-05-31 02:05:52,480 - app.rag_system.document_processor - INFO - Splitting 1 documents into chunks
+2025-05-31 02:05:52,484 - app.rag_system.document_processor - INFO - Created 33 document chunks
+2025-05-31 02:05:52,484 - app.rag_system.vector_store - INFO - Initializing VectorStore with embedding model: text-embedding-3-small
+2025-05-31 02:05:52,508 - app.rag_system.vector_store - INFO - Creating vector store 'video_bDVpI23q8Zg' from 33 documents
+2025-05-31 02:05:55,734 - app.rag_system.vector_store - INFO - Vector store created successfully
+2025-05-31 02:05:55,736 - app.rag_system.vector_store - INFO - Vector store saved as video_bDVpI23q8Zg.faiss and video_bDVpI23q8Zg.pkl
+2025-05-31 02:05:55,736 - app.main - INFO - Video processing completed for bDVpI23q8Zg

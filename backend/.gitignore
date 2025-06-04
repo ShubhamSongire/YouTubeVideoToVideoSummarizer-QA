@@ -12,3 +12,4 @@ downloads/
 transcripts/
 *.pkl
 *.faiss
+.env

@@ -4,28 +4,17 @@ import os
 from typing import Dict, List, Optional
 import uuid
 import time
-from fastapi.responses import JSONResponse
-from dotenv import load_dotenv
 
-# Import your existing components
-from .rag_system.document_processor import DocumentProcessor
-from .rag_system.vector_store import VectorStore
-from .rag_system.memory import SessionManager
-from .rag_system.model import ModelManager
-from .rag_system.retriever import EnhancedRetriever
-from .rag_system.rag_chain import RAGChain
-from .core.video_processor import VideoProcessor
-from .core.transcriber import Transcriber
-from .core.summarizer import TextSummarizer
-from .rag_system.logger import setup_logger
+from app.core.video_processor import VideoProcessor
+from app.core.transcriber import Transcriber
+from app.core.summarizer import TextSummarizer
+from app.rag_system.document_processor import DocumentProcessor
+from app.rag_system.vector_store import VectorStore
+from app.rag_system.memory import SessionManager
+from app.rag_system.model import ModelManager
+from app.rag_system.retriever import EnhancedRetriever
+from app.rag_system.rag_chain import RAGChain
 
-# Load environment variables
-load_dotenv()
-
-# Create logger
-logger = setup_logger(__name__)
-
-# Create FastAPI instance
 app = FastAPI(title="YouTube Video QA API")
 
 # Initialize components
@@ -109,32 +98,12 @@ async def process_video_task(processing_id: str, youtube_url: str):
         video_store[processing_id]["steps"]["download"] = "completed"
         logger.info(f"Download completed for video {video_id}")
         
-        # Transcribe audio (using captions if available, or Whisper as fallback)
-        if transcriber:
-            video_store[processing_id]["steps"]["transcription"] = "in_progress"
-            
-            # Log whether we're using existing subtitles or Whisper
-            if "subtitle_path" in video_info:
-                logger.info(f"Using existing subtitles found at: {video_info['subtitle_path']}")
-            else:
-                logger.info(f"No subtitles found, will use Whisper for transcription")
-                
-            # Get transcript (will try captions first, then Whisper)
-            transcript = transcriber.transcribe(video_info["audio_path"])
-            
-            video_store[processing_id]["transcript"] = transcript["full_text"]
-            video_store[processing_id]["segments"] = transcript["segments"]
-            video_store[processing_id]["steps"]["transcription"] = "completed"
-            
-            # Store the source of transcription
-            video_store[processing_id]["transcription_source"] = "captions" if "subtitle_path" in video_info else "whisper"
-            
-            logger.info(f"Transcription completed for video {video_id} using {video_store[processing_id]['transcription_source']}")
-        else:
-            video_store[processing_id]["steps"]["transcription"] = "skipped"
-            logger.warning("Transcriber not available, skipping transcription")
-            # Use a placeholder transcript for testing if necessary
-            video_store[processing_id]["transcript"] = "Placeholder transcript for testing."
+        # Transcribe audio
+        video_store[processing_id]["steps"]["transcription"] = "in_progress"
+        transcript = transcriber.transcribe(video_info["audio_path"])
+        video_store[processing_id]["transcript"] = transcript["full_text"]
+        video_store[processing_id]["segments"] = transcript["segments"]
+        video_store[processing_id]["steps"]["transcription"] = "completed"
         
         # Generate summary
         video_store[processing_id]["steps"]["summarization"] = "in_progress"
@@ -304,39 +273,6 @@ async def ask_question(request: QuestionRequest):
         logger.error(f"Error processing question: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.get("/video/{processing_id}/transcript")
-async def get_video_transcript(processing_id: str):
-    """Get the transcript of a processed video."""
-    if processing_id not in video_store:
-        raise HTTPException(status_code=404, detail="Processing ID not found")
-    
-    video_data = video_store[processing_id]
-    
-    if video_data["status"] != "completed":
-        raise HTTPException(
-            status_code=400, 
-            detail=f"Video processing not completed. Current status: {video_data['status']}"
-        )
-    
-    if "transcript" not in video_data:
-        raise HTTPException(status_code=404, detail="Transcript not found for this video")
-        
-    # Return transcript and segments if available
-    response = {
-        "processing_id": processing_id,
-        "video_id": video_data["video_id"],
-        "title": video_data["title"],
-        "transcript": video_data["transcript"]
-    }
-    
-    # Add segments if available
-    if "segments" in video_data:
-        response["segments"] = video_data["segments"]
-    
-    # Add transcription source if available
-    if "transcription_source" in video_data:
-        response["transcription_source"] = video_data["transcription_source"]
-    else:
-        response["transcription_source"] = "unknown"
-        
-    return response
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)

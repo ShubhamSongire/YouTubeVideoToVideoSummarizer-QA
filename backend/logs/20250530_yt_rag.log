@@ -1,0 +1,6 @@
+2025-05-30 20:12:08,979 - app.main - INFO - Transcriber initialized successfully
+2025-05-30 20:12:09,004 - app.rag_system.memory - INFO - Initializing SessionManager
+2025-05-30 20:12:09,004 - app.rag_system.model - INFO - Initializing ModelManager with model=gpt-3.5-turbo, temperature=0
+2025-05-30 20:12:09,018 - app.rag_system.model - INFO - LLM initialized successfully
+2025-05-30 20:12:19,287 - app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=bDVpI23q8Zg
+2025-05-30 20:12:35,078 - app.main - ERROR - Error processing video: Error downloading YouTube video: [0;31mERROR:[0m Postprocessing: ffprobe and ffmpeg not found. Please install or provide the path using --ffmpeg-location

@@ -1,6 +1,9 @@
 from langchain_core.runnables import RunnablePassthrough
 from typing import Dict, List, Any, Optional
+<<<<<<< HEAD
 import os
+=======
+>>>>>>> 89db7aef (added logs)
 from .logger import setup_logger
 
 logger = setup_logger(__name__)
@@ -17,11 +20,18 @@ class RAGChain:
         logger.info("RAG Chain initialized successfully")
     
     def _build_chain(self):
+<<<<<<< HEAD
         """Build the RAG chain with history and transcript awareness."""
         logger.info("Building RAG chain")
         try:
             prompt = self.model_manager.create_prompt_template()
             # Use the current LLM instance (will be refreshed on each call)
+=======
+        """Build the RAG chain with history awareness."""
+        logger.info("Building RAG chain")
+        try:
+            prompt = self.model_manager.create_prompt_template()
+>>>>>>> 89db7aef (added logs)
             model = self.model_manager.llm
             
             def get_chat_history(input_dict):
@@ -32,6 +42,7 @@ class RAGChain:
                     return self.session_manager.get_messages(session_id)
                 logger.debug("No session_id provided, returning empty history")
                 return []
+<<<<<<< HEAD
                 
             def get_video_transcript(input_dict):
                 """Get the full video transcript if available."""
@@ -54,11 +65,14 @@ class RAGChain:
                     logger.error(f"Error getting video transcript: {str(e)}")
                 
                 return None
+=======
+>>>>>>> 89db7aef (added logs)
             
             def get_context(input_dict):
                 question = input_dict["question"]
                 logger.info(f"Getting context for question: {question[:50]}...")
                 docs = self.retriever.get_relevant_documents(question)
+<<<<<<< HEAD
                 
                 # If no relevant docs found, try to use the full transcript
                 if not docs:
@@ -69,6 +83,11 @@ class RAGChain:
                         return transcript
                     return "No relevant information found in the video transcript."
                     
+=======
+                if not docs:
+                    logger.warning("No relevant documents found for context")
+                    return "No relevant documents found."
+>>>>>>> 89db7aef (added logs)
                 logger.info(f"Retrieved {len(docs)} documents for context")
                 return "\n\n".join([doc.page_content for doc in docs])
             
@@ -114,6 +133,7 @@ class RAGChain:
         """Process a question and return an answer."""
         logger.info(f"RAG Chain invoked with question: {question[:50]}...")
         logger.debug(f"Session ID: {session_id}")
+<<<<<<< HEAD
         
         try:
             if session_id is None:
@@ -135,6 +155,20 @@ class RAGChain:
             
             # Get answer
             logger.info("Executing RAG chain with rotated API key")
+=======
+        
+        if session_id is None:
+            logger.info("No session ID provided, creating new session")
+            session_id = self.session_manager.create_session()
+        
+        # Add user question to history
+        logger.debug("Adding user question to history")
+        self.session_manager.add_user_message(session_id, question)
+        
+        # Get answer
+        try:
+            logger.info("Executing RAG chain")
+>>>>>>> 89db7aef (added logs)
             start_time = __import__('time').time()
             result = self.chain.invoke({
                 "question": question,
@@ -144,6 +178,7 @@ class RAGChain:
             logger.info(f"RAG chain execution completed in {elapsed_time:.2f}s")
             
             # Add AI response to history
+<<<<<<< HEAD
             try:
                 logger.debug("Adding AI response to history")
                 self.session_manager.add_ai_message(session_id, result["answer"])
@@ -166,3 +201,19 @@ class RAGChain:
                 "docs": [],
                 "execution_time": 0
             }
+=======
+            logger.debug("Adding AI response to history")
+            self.session_manager.add_ai_message(session_id, result["answer"])
+            
+            return {
+                "session_id": session_id,
+                "question": question,
+                "answer": result["answer"],
+                "context": result["context"],
+                "docs": result["docs"],
+                "execution_time": elapsed_time
+            }
+        except Exception as e:
+            logger.error(f"Error during RAG chain execution: {str(e)}")
+            raise
+>>>>>>> 89db7aef (added logs)
