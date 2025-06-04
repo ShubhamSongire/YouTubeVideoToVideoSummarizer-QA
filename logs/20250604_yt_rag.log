@@ -1,0 +1,89 @@
+2025-06-04 00:59:02,773 - backend.app.main - INFO - Transcriber initialized successfully
+2025-06-04 01:00:27,611 - backend.app.main - INFO - Transcriber initialized successfully
+2025-06-04 01:00:27,631 - backend.app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-04 01:00:27,631 - backend.app.rag_system.model - INFO - Initializing ModelManager with model=gemini-1.5-flash, temperature=0.0
+2025-06-04 01:00:27,631 - backend.app.rag_system.model - INFO - Found 7 Google API keys for rotation
+2025-06-04 01:00:27,655 - backend.app.rag_system.model - INFO - LLM initialized successfully with API key ending in ...K62c
+2025-06-04 01:00:46,783 - backend.app.main - INFO - Starting video processing for https://www.youtube.com/watch?v=rwF-X5STYks
+2025-06-04 01:00:55,939 - backend.app.main - INFO - Download completed for video rwF-X5STYks
+2025-06-04 01:00:55,939 - backend.app.main - INFO - No subtitles found, will use Whisper for transcription
+2025-06-04 01:01:10,319 - backend.app.main - INFO - Transcription completed for video rwF-X5STYks using whisper
+2025-06-04 01:01:13,590 - backend.app.main - INFO - Summarization completed for video rwF-X5STYks
+2025-06-04 01:01:13,591 - backend.app.rag_system.document_processor - INFO - Initializing DocumentProcessor with chunk_size=1000, chunk_overlap=200
+2025-06-04 01:01:13,591 - backend.app.rag_system.document_processor - INFO - Loading documents from directory: ./transcripts
+2025-06-04 01:01:13,592 - backend.app.rag_system.document_processor - INFO - Successfully loaded 2 documents from ./transcripts
+2025-06-04 01:01:13,592 - backend.app.rag_system.document_processor - INFO - Splitting 2 documents into chunks
+2025-06-04 01:01:13,594 - backend.app.rag_system.document_processor - INFO - Created 10 document chunks
+2025-06-04 01:01:13,594 - backend.app.rag_system.vector_store - INFO - Initializing VectorStore with embedding model: text-embedding-3-small
+2025-06-04 01:01:13,614 - backend.app.rag_system.vector_store - INFO - Creating vector store 'video_rwF-X5STYks' from 10 documents
+2025-06-04 01:01:14,987 - backend.app.rag_system.vector_store - INFO - Vector store created successfully
+2025-06-04 01:01:14,989 - backend.app.rag_system.vector_store - INFO - Vector store saved as video_rwF-X5STYks.faiss and video_rwF-X5STYks.pkl
+2025-06-04 01:01:14,990 - backend.app.main - INFO - Video processing completed for rwF-X5STYks
+2025-06-04 01:01:22,188 - backend.app.main - INFO - Looking for vector store at: /Users/L058428/experiments/yt_rag/video_rwF-X5STYks
+2025-06-04 01:01:22,189 - backend.app.main - INFO - Path exists? True
+2025-06-04 01:01:22,189 - backend.app.main - INFO - Transcript path: ./transcripts/rwF-X5STYks.txt, exists: True
+2025-06-04 01:01:22,189 - backend.app.rag_system.vector_store - INFO - Initializing VectorStore with embedding model: text-embedding-3-small
+2025-06-04 01:01:22,212 - backend.app.rag_system.vector_store - INFO - Attempting to load vector store: video_rwF-X5STYks
+2025-06-04 01:01:22,212 - backend.app.rag_system.vector_store - INFO - Found vector store files directly in: video_rwF-X5STYks
+2025-06-04 01:01:22,217 - backend.app.rag_system.vector_store - INFO - Vector store 'video_rwF-X5STYks' loaded successfully
+2025-06-04 01:01:22,217 - backend.app.rag_system.vector_store - INFO - Creating retriever with search_type=similarity_score_threshold, k=4, score_threshold=0.7
+2025-06-04 01:01:22,217 - backend.app.rag_system.retriever - INFO - Initializing EnhancedRetriever with threshold=0.7
+2025-06-04 01:01:22,217 - backend.app.rag_system.retriever - INFO - Setting up contextual compression retriever
+2025-06-04 01:01:22,219 - backend.app.rag_system.retriever - INFO - Contextual compression retriever created successfully
+2025-06-04 01:01:22,220 - backend.app.rag_system.rag_chain - INFO - Initializing RAG Chain
+2025-06-04 01:01:22,220 - backend.app.rag_system.rag_chain - INFO - Building RAG chain
+2025-06-04 01:01:22,221 - backend.app.rag_system.model - INFO - Creating prompt template
+2025-06-04 01:01:22,225 - backend.app.rag_system.model - INFO - Prompt template created successfully
+2025-06-04 01:01:22,225 - backend.app.rag_system.rag_chain - INFO - Assembling RAG chain components
+2025-06-04 01:01:22,238 - backend.app.rag_system.rag_chain - INFO - RAG chain built successfully
+2025-06-04 01:01:22,238 - backend.app.rag_system.rag_chain - INFO - RAG Chain initialized successfully
+2025-06-04 01:01:22,238 - backend.app.rag_system.memory - INFO - Generated new session ID: 70cdd618-26d7-4d4b-97c0-cfcfdd351355
+2025-06-04 01:01:22,238 - backend.app.rag_system.memory - INFO - Creating new session: 70cdd618-26d7-4d4b-97c0-cfcfdd351355 with metadata: {'video_id': 'rwF-X5STYks'}
+2025-06-04 01:01:22,238 - backend.app.main - INFO - Created new session 70cdd618-26d7-4d4b-97c0-cfcfdd351355 for video rwF-X5STYks
+2025-06-04 01:01:22,238 - backend.app.main - INFO - Processing question for video rwF-X5STYks: hi
+2025-06-04 01:01:22,238 - backend.app.rag_system.rag_chain - INFO - RAG Chain invoked with question: hi...
+2025-06-04 01:01:22,238 - backend.app.rag_system.memory - INFO - Adding user message to session 70cdd618-26d7-4d4b-97c0-cfcfdd351355
+2025-06-04 01:01:22,242 - backend.app.rag_system.model - INFO - LLM initialized successfully with API key ending in ...c7PA
+2025-06-04 01:01:22,242 - backend.app.rag_system.rag_chain - INFO - Building RAG chain
+2025-06-04 01:01:22,242 - backend.app.rag_system.model - INFO - Creating prompt template
+2025-06-04 01:01:22,242 - backend.app.rag_system.model - INFO - Prompt template created successfully
+2025-06-04 01:01:22,242 - backend.app.rag_system.rag_chain - INFO - Assembling RAG chain components
+2025-06-04 01:01:22,242 - backend.app.rag_system.rag_chain - INFO - RAG chain built successfully
+2025-06-04 01:01:22,244 - backend.app.rag_system.rag_chain - INFO - Executing RAG chain with rotated API key
+2025-06-04 01:01:22,256 - backend.app.rag_system.rag_chain - INFO - Getting context for question: hi...
+2025-06-04 01:01:23,055 - backend.app.rag_system.rag_chain - WARNING - No relevant documents found for context
+2025-06-04 01:01:23,055 - backend.app.rag_system.rag_chain - INFO - Getting transcript for video ID: rwF-X5STYks
+2025-06-04 01:01:23,055 - backend.app.rag_system.rag_chain - INFO - Using full transcript as context since no relevant chunks were found
+2025-06-04 01:01:23,157 - backend.app.rag_system.rag_chain - INFO - Generating answer from context and question
+2025-06-04 01:01:25,090 - backend.app.rag_system.rag_chain - INFO - RAG chain execution completed in 2.85s
+2025-06-04 01:01:25,091 - backend.app.rag_system.memory - INFO - Adding AI message to session 70cdd618-26d7-4d4b-97c0-cfcfdd351355
+2025-06-04 01:15:10,106 - backend.app.main - INFO - Transcriber initialized successfully
+2025-06-04 01:15:10,125 - backend.app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-04 01:15:10,125 - backend.app.rag_system.model - INFO - Initializing ModelManager with model=gemini-1.5-flash, temperature=0.0
+2025-06-04 01:15:10,125 - backend.app.rag_system.model - INFO - Found 7 Google API keys for rotation
+2025-06-04 01:15:10,136 - backend.app.rag_system.model - INFO - LLM initialized successfully with API key ending in ...K62c
+2025-06-04 01:15:28,670 - backend.app.main - INFO - Transcriber initialized successfully
+2025-06-04 01:15:28,689 - backend.app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-04 01:15:28,689 - backend.app.rag_system.model - INFO - Initializing ModelManager with model=gemini-1.5-flash, temperature=0.0
+2025-06-04 01:15:28,689 - backend.app.rag_system.model - INFO - Found 7 Google API keys for rotation
+2025-06-04 01:15:28,699 - backend.app.rag_system.model - INFO - LLM initialized successfully with API key ending in ...K62c
+2025-06-04 01:15:43,260 - backend.app.main - INFO - Transcriber initialized successfully
+2025-06-04 01:15:43,279 - backend.app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-04 01:15:43,279 - backend.app.rag_system.model - INFO - Initializing ModelManager with model=gemini-1.5-flash, temperature=0.0
+2025-06-04 01:15:43,279 - backend.app.rag_system.model - INFO - Found 7 Google API keys for rotation
+2025-06-04 01:15:43,289 - backend.app.rag_system.model - INFO - LLM initialized successfully with API key ending in ...K62c
+2025-06-04 01:16:03,257 - backend.app.main - INFO - Transcriber initialized successfully
+2025-06-04 01:16:03,276 - backend.app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-04 01:16:03,276 - backend.app.rag_system.model - INFO - Initializing ModelManager with model=gemini-1.5-flash, temperature=0.0
+2025-06-04 01:16:03,276 - backend.app.rag_system.model - INFO - Found 7 Google API keys for rotation
+2025-06-04 01:16:03,286 - backend.app.rag_system.model - INFO - LLM initialized successfully with API key ending in ...K62c
+2025-06-04 01:19:50,167 - backend.app.main - INFO - Transcriber initialized successfully
+2025-06-04 01:19:50,185 - backend.app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-04 01:19:50,186 - backend.app.rag_system.model - INFO - Initializing ModelManager with model=gemini-1.5-flash, temperature=0.0
+2025-06-04 01:19:50,186 - backend.app.rag_system.model - INFO - Found 7 Google API keys for rotation
+2025-06-04 01:19:50,196 - backend.app.rag_system.model - INFO - LLM initialized successfully with API key ending in ...K62c
+2025-06-04 01:20:12,839 - backend.app.main - INFO - Transcriber initialized successfully
+2025-06-04 01:20:12,858 - backend.app.rag_system.memory - INFO - Initializing SessionManager
+2025-06-04 01:20:12,858 - backend.app.rag_system.model - INFO - Initializing ModelManager with model=gemini-1.5-flash, temperature=0.0
+2025-06-04 01:20:12,858 - backend.app.rag_system.model - INFO - Found 7 Google API keys for rotation
+2025-06-04 01:20:12,868 - backend.app.rag_system.model - INFO - LLM initialized successfully with API key ending in ...K62c
