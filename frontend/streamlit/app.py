@@ -367,18 +367,8 @@ with tab4:
                         st.error(f"Connection error: {str(e)}")
                     except Exception as e:
                         st.error(f"Error during cleanup: {str(e)}")
-                        st.session_state.video_title = None
-                        st.session_state.session_id = None
-                        st.session_state.chat_history = []
-                        
-                        # Force page reload to reset UI
-                        st.experimental_rerun()
-                    else:
-                        st.error(f"Error cleaning up video: {response.text}")
-                except Exception as e:
-                    st.error(f"Error: {str(e)}")
-    else:
-        st.info("Process a video first to see cleanup options.")
+        else:
+            st.info("Process a video first to see cleanup options.")
     
     # Global cleanup section
     st.markdown("### Advanced Cleanup Options")

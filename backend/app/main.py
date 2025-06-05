@@ -23,13 +23,6 @@ from .core.summarizer import TextSummarizer
 from .rag_system.logger import setup_logger
 from .cleanup import cleanup_video_files, cleanup_all_files, recreate_directories
 
-# Load environment variables
-load_dotenv()
-
-# Create logger
-logger = setup_logger(__name__)
-
-# Create FastAPI instance
 app = FastAPI(title="YouTube Video QA API")
 
 # Add CORS middleware to allow requests from the Streamlit app
@@ -138,32 +131,12 @@ async def process_video_task(processing_id: str, youtube_url: str):
         video_store[processing_id]["steps"]["download"] = "completed"
         logger.info(f"Download completed for video {video_id}")
         
-        # Transcribe audio (using captions if available, or Whisper as fallback)
-        if transcriber:
-            video_store[processing_id]["steps"]["transcription"] = "in_progress"
-            
-            # Log whether we're using existing subtitles or Whisper
-            if "subtitle_path" in video_info:
-                logger.info(f"Using existing subtitles found at: {video_info['subtitle_path']}")
-            else:
-                logger.info(f"No subtitles found, will use Whisper for transcription")
-                
-            # Get transcript (will try captions first, then Whisper)
-            transcript = transcriber.transcribe(video_info["audio_path"])
-            
-            video_store[processing_id]["transcript"] = transcript["full_text"]
-            video_store[processing_id]["segments"] = transcript["segments"]
-            video_store[processing_id]["steps"]["transcription"] = "completed"
-            
-            # Store the source of transcription
-            video_store[processing_id]["transcription_source"] = "captions" if "subtitle_path" in video_info else "whisper"
-            
-            logger.info(f"Transcription completed for video {video_id} using {video_store[processing_id]['transcription_source']}")
-        else:
-            video_store[processing_id]["steps"]["transcription"] = "skipped"
-            logger.warning("Transcriber not available, skipping transcription")
-            # Use a placeholder transcript for testing if necessary
-            video_store[processing_id]["transcript"] = "Placeholder transcript for testing."
+        # Transcribe audio
+        video_store[processing_id]["steps"]["transcription"] = "in_progress"
+        transcript = transcriber.transcribe(video_info["audio_path"])
+        video_store[processing_id]["transcript"] = transcript["full_text"]
+        video_store[processing_id]["segments"] = transcript["segments"]
+        video_store[processing_id]["steps"]["transcription"] = "completed"
         
         # Generate summary
         video_store[processing_id]["steps"]["summarization"] = "in_progress"
