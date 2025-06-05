@@ -19,7 +19,6 @@ pydantic==2.6.3  # Compatible with newer packages
 protobuf==4.25.8  # Version that works with whisper
 yt-dlp==2023.12.30
 openai-whisper==20231117
-streamlit==1.32.0
 tiktoken==0.6.0
 requests==2.31.0
 gunicorn==21.2.0  # For production server
