@@ -442,3 +442,7 @@ async def cleanup_all(request: CleanupRequest):
     except Exception as e:
         logger.error(f"Error during cleanup: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/healthz")
+def healthz():
+    return {"status": "ok"}
