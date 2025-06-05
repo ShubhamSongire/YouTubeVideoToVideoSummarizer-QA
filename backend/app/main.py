@@ -23,6 +23,8 @@ from .core.summarizer import TextSummarizer
 from .rag_system.logger import setup_logger
 from .cleanup import cleanup_video_files, cleanup_all_files, recreate_directories
 
+logger = setup_logger(__name__)
+
 app = FastAPI(title="YouTube Video QA API")
 
 # Add CORS middleware to allow requests from the Streamlit app
