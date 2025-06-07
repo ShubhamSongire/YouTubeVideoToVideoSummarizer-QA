@@ -33,3 +33,6 @@ notes.txt
 backend/venv/
 frontend/streamlit/venv/
 frontend/react/node_modules/
+
+
+untracked/
