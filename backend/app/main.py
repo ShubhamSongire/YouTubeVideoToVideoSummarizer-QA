@@ -116,7 +116,7 @@ async def process_video(request: VideoRequest, background_tasks: BackgroundTasks
     
     except Exception as e:
         logger.error(f"Error processing video request: {str(e)}")
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e)) 
 
 async def process_video_task(processing_id: str, youtube_url: str):
     """Background task for processing videos."""
