@@ -105,7 +105,8 @@ class ModelManager:
             self.llm = ChatGoogleGenerativeAI(
                 model=self.model_name, 
                 temperature=self.temperature, 
-                google_api_key=api_key
+                google_api_key=api_key,
+                convert_system_message_to_human=True
             )
             logger.info(f"LLM initialized successfully with API key ending in ...{api_key[-4:]}")
         except Exception as e:
@@ -131,10 +132,9 @@ class ModelManager:
             Use the chat history to provide consistent responses."""
         
         template = ChatPromptTemplate.from_messages([
-            ("system", system_template),
+            ("human", system_template),
             MessagesPlaceholder(variable_name="chat_history"),
-            ("human", "{question}"),
-            ("system", "Here is context information from the video transcript to help with the response: {context}")
+            ("human", "{question}\n\nContext information from the video transcript: {context}")
         ])
         logger.info("Prompt template created successfully")
         return template

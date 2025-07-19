@@ -46,7 +46,7 @@ class RAGChain:
                     
                     if video_id:
                         logger.info(f"Getting transcript for video ID: {video_id}")
-                        transcript_path = f"./transcripts/{video_id}.txt"
+                        transcript_path = f"./downloads/transcripts/{video_id}.txt"
                         if os.path.exists(transcript_path):
                             with open(transcript_path, "r") as f:
                                 return f.read()
@@ -58,7 +58,11 @@ class RAGChain:
             def get_context(input_dict):
                 question = input_dict["question"]
                 logger.info(f"Getting context for question: {question[:50]}...")
-                docs = self.retriever.get_relevant_documents(question)
+                try:
+                    docs = self.retriever.invoke(question)
+                except AttributeError:
+                    # Fallback to deprecated method if invoke is not available
+                    docs = self.retriever.get_relevant_documents(question)
                 
                 # If no relevant docs found, try to use the full transcript
                 if not docs:
@@ -66,16 +70,24 @@ class RAGChain:
                     transcript = get_video_transcript(input_dict)
                     if transcript:
                         logger.info("Using full transcript as context since no relevant chunks were found")
-                        return transcript
+                        # Return first 2000 characters of transcript to avoid context overflow
+                        return transcript[:2000] + "..." if len(transcript) > 2000 else transcript
+                    logger.error("No relevant information found and no transcript available")
                     return "No relevant information found in the video transcript."
                     
                 logger.info(f"Retrieved {len(docs)} documents for context")
-                return "\n\n".join([doc.page_content for doc in docs])
+                context = "\n\n".join([doc.page_content for doc in docs])
+                logger.debug(f"Context length: {len(context)} characters")
+                return context
             
             def get_docs(input_dict):
                 question = input_dict["question"]
                 logger.debug(f"Getting raw docs for question: {question[:50]}...")
-                return self.retriever.get_relevant_documents(question)
+                try:
+                    return self.retriever.invoke(question)
+                except AttributeError:
+                    # Fallback to deprecated method if invoke is not available
+                    return self.retriever.get_relevant_documents(question)
             
             def get_answer(input_dict):
                 logger.info("Generating answer from context and question")

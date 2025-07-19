@@ -7,7 +7,7 @@ import os
 from requests.exceptions import ConnectionError, Timeout
 
 # API endpoint - use environment variable if available, otherwise default to localhost
-API_URL = os.environ.get("API_URL", "http://localhost:8080")
+API_URL = os.environ.get("API_URL", "http://localhost:8000")
 
 st.set_page_config(page_title="YouTube Video QA System", layout="wide")
 
@@ -187,25 +187,33 @@ with tab2:
     st.header("Ask Questions")
     
     if st.session_state.video_id:
-        # Display chat history
-        for i, message in enumerate(st.session_state.chat_history):
-            if message["role"] == "user":
-                st.chat_message("user").write(message["content"])
+        # Create a container for the chat history that has a fixed height
+        chat_container = st.container()
+        
+        # Display chat history in a scrollable container
+        with chat_container:
+            if st.session_state.chat_history:
+                for i, message in enumerate(st.session_state.chat_history):
+                    if message["role"] == "user":
+                        st.chat_message("user").write(message["content"])
+                    else:
+                        st.chat_message("assistant").write(message["content"])
             else:
-                st.chat_message("assistant").write(message["content"])
+                st.info("Start a conversation by asking a question about the video!")
         
-        # Question input
-        question = st.chat_input("Ask a question about the video:")
+        # Add some space before the input
+        st.markdown("<br>", unsafe_allow_html=True)
         
+        # Use chat_input at the bottom - it will stay fixed
+        question = st.chat_input("Ask a question about the video...")
+        
+        # Process the question when submitted
         if question:
             # Add user question to chat history
             st.session_state.chat_history.append({
                 "role": "user",
                 "content": question
             })
-            
-            # Display user question
-            st.chat_message("user").write(question)
             
             # Call API to get answer
             with st.spinner("Thinking..."):
@@ -232,11 +240,12 @@ with tab2:
                         "content": answer_data["answer"]
                     })
                     
-                    # Display answer
-                    st.chat_message("assistant").write(answer_data["answer"])
+                    # Rerun to show the new messages
+                    st.experimental_rerun()
                     
                 except Exception as e:
                     st.error(f"Error: {str(e)}")
+                    
     else:
         st.info("Process a video first to ask questions about it.")
 
