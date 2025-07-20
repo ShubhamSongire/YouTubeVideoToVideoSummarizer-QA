@@ -1,0 +1,27 @@
+{
+  "name": "YouTube Video QA System",
+  "description": "A system for YouTube video summarization and question answering using RAG",
+  "repository": "https://github.com/ShubhamSongire/YouTubeVideoToVideoSummarizer-QA",
+  "keywords": ["python", "fastapi", "streamlit", "rag", "ai", "nlp", "youtube"],
+  "env": {
+    "GOOGLE_API_KEY": {
+      "description": "Google API Key for Gemini model"
+    },
+    "OPENAI_API_KEY": {
+      "description": "OpenAI API Key (optional)",
+      "required": false
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ],
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "standard-1x"
+    }
+  },
+  "addons": []
+}

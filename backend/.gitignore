@@ -1,0 +1,15 @@
+# backend/.gitignore
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+env/
+downloads/
+transcripts/
+*.pkl
+*.faiss
+.env

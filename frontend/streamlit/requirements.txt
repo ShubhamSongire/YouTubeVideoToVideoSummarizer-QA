@@ -1,0 +1,8 @@
+streamlit==1.32.0 
+requests==2.31.0
+python-dotenv==1.0.0
+watchdog==3.0.0  # For better file watching
+protobuf==4.25.8  # Important for compatibility with streamlit
+altair==4.2.2  # For visualizations
+pydeck==0.8.0  # For maps in streamlit
+toml==0.10.2  # For config files
