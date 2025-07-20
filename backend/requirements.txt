@@ -1,0 +1,19 @@
+fastapi==0.110.0
+uvicorn==0.30.0
+python-multipart==0.0.9
+python-dotenv==1.0.0
+langchain==0.1.20
+langchain-core==0.1.53
+langchain-openai==0.1.6
+langchain-community==0.0.38
+langchain-google-genai==0.0.9
+google-generativeai==0.3.2
+faiss-cpu==1.11.0
+pydantic==2.6.3
+protobuf==4.25.8
+yt-dlp==2025.5.22 #yt-dlp==2023.12.30
+openai-whisper==20231117
+tiktoken==0.5.2
+requests==2.31.0
+gunicorn==21.2.0
+
