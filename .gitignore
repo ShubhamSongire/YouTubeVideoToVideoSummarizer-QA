@@ -8,6 +8,7 @@ venv/
 ENV/
 env/
 del-pyvenv.cfg
+*.pyc
 
 # Project specific directories
 downloads/
@@ -16,10 +17,18 @@ transcripts/
 backend/transcripts/
 logs/
 backend/logs/
+test_downloads/
 
 # Data files
 *.pkl
 *.faiss
+*.mp3
+*.mp4
+*.wav
+*.m4a
+*.webm
+*.vtt
+*.srt
 
 # Configuration and sensitive files
 .env
@@ -37,3 +46,66 @@ frontend/streamlit/venv
 frontend/react/.env
 venv/
 untracked/
+
+# Development and Docker files
+docker-compose.dev.yml
+Dockerfile.dev
+Dockerfile.frontend.dev
+.docker/
+docker-compose.override.yml
+
+# IDE and Editor files
+.vscode/settings.json
+.vscode/launch.json
+.idea/
+*.swp
+*.swo
+*~
+
+# macOS specific
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Testing and temporary files
+test_downloads/
+temp/
+tmp/
+*.tmp
+*.temp
+test_*.py.log
+pytest_cache/
+.coverage
+.pytest_cache/
+
+# Logs
+*.log
+logs/
+backend/logs/
+frontend/logs/
+*.log.*
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# AI/ML model files (if downloading models locally)
+models/
+*.bin
+*.safetensors
+*.onnx
+
+# Vector store files
+vector_stores/
+*.index
+faiss_index/
+
+# Backup files
+*.bak
+*.backup
+*.old

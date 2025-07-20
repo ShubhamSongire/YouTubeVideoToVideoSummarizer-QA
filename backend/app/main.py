@@ -23,9 +23,25 @@ from .core.summarizer import TextSummarizer
 from .rag_system.logger import setup_logger
 from .cleanup import cleanup_video_files, cleanup_all_files, recreate_directories
 
+# Load environment variables
+load_dotenv()
+
 logger = setup_logger(__name__)
 
-app = FastAPI(title="YouTube Video QA API")
+# Cloud environment detection
+IS_CLOUD_ENV = any(os.environ.get(env) for env in [
+    'RENDER', 'HEROKU', 'VERCEL', 'RAILWAY', 'FLY',
+    'GOOGLE_CLOUD_PROJECT', 'AWS_LAMBDA_FUNCTION_NAME'
+])
+
+if IS_CLOUD_ENV:
+    logger.info("Cloud environment detected - using cloud optimizations")
+
+app = FastAPI(
+    title="YouTube Video QA API",
+    description="Cloud-optimized YouTube video analysis and Q&A system",
+    version="2.0.0"
+)
 
 # Add CORS middleware to allow requests from the Streamlit app
 app.add_middleware(
