@@ -120,7 +120,7 @@ with st.sidebar:
                         st.session_state.chat_history = []
                         st.success("Video cleaned up successfully!")
                         # Force page reload to reset UI
-                        st.experimental_rerun()
+                        st.rerun()
                     else:
                         st.error(f"Error cleaning up video: {response.text}")
                 except Exception as e:
@@ -147,7 +147,7 @@ with st.sidebar:
                         st.session_state.chat_history = []
                         st.success("All videos cleaned up successfully!")
                         # Force page reload to reset UI
-                        st.experimental_rerun()
+                        st.rerun()
                     else:
                         st.error(f"Error cleaning up videos: {response.text}")
                 except Exception as e:
