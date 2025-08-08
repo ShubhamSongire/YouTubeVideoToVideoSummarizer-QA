@@ -1,22 +1,25 @@
 from langchain_community.document_loaders import DirectoryLoader, TextLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_core.documents import Document
 from typing import List, Dict, Any
 from .logger import setup_logger
+import logging
 
 logger = setup_logger(__name__)
 
 class DocumentProcessor:
-    """Handles document loading and processing."""
+    """Handles document loading and processing with optimized chunking for Gemini models."""
     
-    def __init__(self, chunk_size: int = 1000, chunk_overlap: int = 200):
-        """Initialize document processor with configurable chunk parameters."""
+    def __init__(self, chunk_size: int = 800, chunk_overlap: int = 100):
+        """Initialize document processor with optimized chunk parameters for Gemini."""
         logger.info(f"Initializing DocumentProcessor with chunk_size={chunk_size}, chunk_overlap={chunk_overlap}")
         self.chunk_size = chunk_size
         self.chunk_overlap = chunk_overlap
         self.text_splitter = RecursiveCharacterTextSplitter(
             chunk_size=self.chunk_size,
             chunk_overlap=self.chunk_overlap,
-            separators=["\n\n", "\n", " ", ""]
+            separators=["\n\n", "\n", ". ", " ", ""],
+            keep_separator=True
         )
     
     def load_documents(self, directory_path: str):
@@ -44,4 +47,40 @@ class DocumentProcessor:
             return chunks
         except Exception as e:
             logger.error(f"Error splitting documents: {str(e)}")
+            raise
+    
+    def process_transcript(self, transcript_text: str, video_id: str) -> List:
+        """Process a video transcript into optimally-sized chunks for Gemini."""
+        logger.info(f"Processing transcript for video {video_id}, length: {len(transcript_text)} characters")
+        
+        if not transcript_text or not transcript_text.strip():
+            logger.warning(f"Empty transcript for video {video_id}")
+            return []
+        
+        try:
+            # Create a document from the transcript
+            doc = Document(
+                page_content=transcript_text,
+                metadata={
+                    "video_id": video_id,
+                    "source": "youtube_transcript"
+                }
+            )
+            
+            # Split into chunks optimized for Gemini
+            chunks = self.text_splitter.split_documents([doc])
+            
+            # Add additional metadata to each chunk
+            for i, chunk in enumerate(chunks):
+                chunk.metadata.update({
+                    "chunk_index": i,
+                    "total_chunks": len(chunks),
+                    "video_id": video_id
+                })
+            
+            logger.info(f"Created {len(chunks)} chunks for video {video_id}")
+            return chunks
+            
+        except Exception as e:
+            logger.error(f"Error processing transcript for video {video_id}: {str(e)}")
             raise

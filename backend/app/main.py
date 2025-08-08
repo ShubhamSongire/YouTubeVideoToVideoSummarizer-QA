@@ -62,7 +62,8 @@ except Exception as e:
     logger.warning("Proceeding without transcriber")
     transcriber = None
 
-summarizer = TextSummarizer()
+# Use the same model for summarization as for QA
+summarizer = TextSummarizer(model_name="gemini-1.5-flash", temperature=0.0)
 session_manager = SessionManager()
 model_manager = ModelManager(model_name="gemini-1.5-flash", temperature=0.0)
 
