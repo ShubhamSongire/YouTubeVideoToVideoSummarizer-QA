@@ -27,4 +27,4 @@ COPY . .
 RUN mkdir -p downloads/logs downloads/transcripts downloads/vector_stores
 
 # Run the FastAPI application
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "${PORT:-8080}"]
+CMD uvicorn app.main:app --host 0.0.0.0 --port $PORT

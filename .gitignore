@@ -23,6 +23,7 @@ backend/logs/
 
 # Configuration and sensitive files
 .env
+.venv
 backend/.env
 frontend/streamlit/.env
 frontend/react/.env
