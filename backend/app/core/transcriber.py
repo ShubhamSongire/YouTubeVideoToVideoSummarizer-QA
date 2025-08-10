@@ -40,6 +40,7 @@ class Transcriber:
         temp_dir = tempfile.mkdtemp()
         
         ydl_opts = {
+            'cookies': '/etc/secrets/cookies.txt',  # Path to cookies file
             'writesubtitles': True,      # Write subtitles file
             'writeautomaticsub': True,   # Include auto-generated subs if no manual ones
             'subtitleslangs': ['en'],    # Download English subtitles
