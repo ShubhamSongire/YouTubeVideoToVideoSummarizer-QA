@@ -52,6 +52,7 @@ class VideoProcessor:
                         'preferredcodec': 'mp3',
                         'preferredquality': '192',
                     }],
+                    'cookiefile': 'cookies.txt',
                     'noplaylist': True,
                     'quiet': False,
                     'extract_flat': False,
@@ -72,6 +73,7 @@ class VideoProcessor:
                         'preferredcodec': 'mp3',
                         'preferredquality': '128',
                     }],
+                    'cookiefile': 'cookies.txt',
                     'noplaylist': True,
                     'quiet': False,
                     'http_headers': {
@@ -84,6 +86,7 @@ class VideoProcessor:
                 'opts': {
                     'format': 'bestaudio',
                     'outtmpl': f"{output_path}.%(ext)s",
+                    'cookiefile': 'cookies.txt',
                     'noplaylist': True,
                     'quiet': False,
                 }
@@ -146,6 +149,7 @@ class VideoProcessor:
                 'writeautomaticsub': True,
                 'subtitleslangs': ['en'],
                 'outtmpl': output_path,
+                'cookiefile': 'cookies.txt',
             }
             
             with yt_dlp.YoutubeDL(subtitle_opts) as ydl:
